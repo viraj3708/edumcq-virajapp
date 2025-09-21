@@ -1,0 +1,28 @@
+📱 EduMCQ Mobile Guide
+
+🚀 Quick Setup:
+1. Copy the entire 'project' folder to your phone
+2. Open index.html in Chrome browser
+3. Tap Chrome menu (3 dots) → "Add to Home screen"
+4. Now you have EduMCQ app icon on your phone!
+
+📂 Transfer Methods:
+✅ Google Drive/OneDrive upload & download
+✅ USB cable file transfer
+✅ Email the zip file to yourself
+✅ WhatsApp file sharing
+
+📱 Mobile Features:
+✅ Works on Android & iPhone
+✅ Touch-friendly interface
+✅ Responsive design
+✅ Offline capable
+✅ App-like experience
+
+💡 Best Experience:
+- Use Chrome or Firefox browser
+- Turn phone sideways for quizzes
+- Add to home screen for quick access
+- Works without internet connection
+
+Happy Mobile Learning! 📚✨

@@ -1,0 +1,16 @@
+{
+  "name": "EduMCQ Smart Learning Platform",
+  "short_name": "EduMCQ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "description": "An interactive educational platform for students to learn through Multiple Choice Questions (MCQs)",
+  "icons": [
+    {
+      "src": "EduMCQ.ico.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

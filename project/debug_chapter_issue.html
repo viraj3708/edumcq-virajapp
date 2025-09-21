@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Chapter Issue</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .chapter-list { list-style-type: none; padding: 0; }
+        .chapter-item { padding: 10px; margin: 5px 0; background: #f5f5f5; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Debug: Our Body Chapter Issue</h1>
+    
+    <div class="debug-section">
+        <h2>Data Structure Check</h2>
+        <div id="data-check"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Chapter List for Science Class 3</h2>
+        <ul id="chapter-list" class="chapter-list"></ul>
+    </div>
+    
+    <div class="debug-section">
+        <h2>MCQ Questions Check</h2>
+        <div id="mcq-check"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        // Debug the data structure
+        document.addEventListener('DOMContentLoaded', function() {
+            const dataCheck = document.getElementById('data-check');
+            const chapterList = document.getElementById('chapter-list');
+            const mcqCheck = document.getElementById('mcq-check');
+            
+            // Check if required objects exist
+            if (typeof chapters === 'undefined') {
+                dataCheck.innerHTML = '<p class="error">ERROR: chapters object is not defined</p>';
+                return;
+            }
+            
+            if (typeof mcqQuestions === 'undefined') {
+                dataCheck.innerHTML += '<p class="error">ERROR: mcqQuestions object is not defined</p>';
+                return;
+            }
+            
+            dataCheck.innerHTML = '<p class="success">✓ chapters and mcqQuestions objects are defined</p>';
+            
+            // Check Science Class 3 chapters
+            if (chapters['science'] && chapters['science'][3]) {
+                dataCheck.innerHTML += '<p class="success">✓ chapters.science[3] exists</p>';
+                
+                const scienceChapters = chapters['science'][3];
+                dataCheck.innerHTML += `<p>Number of chapters: ${scienceChapters.length}</p>`;
+                
+                // List all chapters
+                scienceChapters.forEach((chapter, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'chapter-item';
+                    li.innerHTML = `
+                        <strong>Chapter ${index + 1}:</strong> ${chapter.name}<br>
+                        <small>ID: ${chapter.id} | Difficulty: ${chapter.difficulty}</small>
+                    `;
+                    chapterList.appendChild(li);
+                    
+                    // Check if this is our-body chapter
+                    if (chapter.id === 'our-body') {
+                        dataCheck.innerHTML += '<p class="success">✓ "our-body" chapter found in data structure</p>';
+                    }
+                });
+                
+                // Check if our-body chapter exists
+                const ourBodyChapter = scienceChapters.find(ch => ch.id === 'our-body');
+                if (!ourBodyChapter) {
+                    dataCheck.innerHTML += '<p class="error">ERROR: "our-body" chapter NOT found in chapters.science[3]</p>';
+                }
+            } else {
+                dataCheck.innerHTML += '<p class="error">ERROR: chapters.science[3] does not exist</p>';
+            }
+            
+            // Check MCQ questions for our-body
+            if (mcqQuestions['our-body']) {
+                dataCheck.innerHTML += '<p class="success">✓ mcqQuestions["our-body"] exists</p>';
+                
+                const ourBodyQuestions = mcqQuestions['our-body'];
+                const setCount = Object.keys(ourBodyQuestions).length;
+                dataCheck.innerHTML += `<p>Number of question sets: ${setCount}</p>`;
+                
+                let totalQuestions = 0;
+                Object.keys(ourBodyQuestions).forEach(setId => {
+                    totalQuestions += ourBodyQuestions[setId].length;
+                });
+                
+                dataCheck.innerHTML += `<p>Total questions: ${totalQuestions}</p>`;
+                
+                // Display question sets
+                Object.keys(ourBodyQuestions).forEach(setId => {
+                    const set = ourBodyQuestions[setId];
+                    mcqCheck.innerHTML += `<p>Set ${setId}: ${set.length} questions</p>`;
+                });
+            } else {
+                dataCheck.innerHTML += '<p class="error">ERROR: mcqQuestions["our-body"] does not exist</p>';
+            }
+        });
+    </script>
+</body>
+</html>

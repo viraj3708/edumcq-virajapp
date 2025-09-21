@@ -1,0 +1,90 @@
+🎓 EduMCQ - Content Management Guide
+===============================
+
+📋 How to Add New Questions and Content (No Coding Experience Required)
+
+ADDING NEW MCQ QUESTIONS:
+---------------------
+1. Open "data.js" file with any text editor (Notepad works fine)
+2. Find the section for your chapter (search for chapter ID)
+3. Follow this template to add new questions:
+
+```
+{
+    id: UNIQUE_NUMBER,
+    question: 'Your question here?',
+    options: ['Option A', 'Option B', 'Option C', 'Option D'],
+    correctAnswer: 0, // 0 for A, 1 for B, 2 for C, 3 for D
+    explanation: 'Explanation of why the answer is correct',
+    difficulty: 'Easy' // or 'Medium' or 'Hard'
+}
+```
+
+ADDING NEW CHAPTERS:
+----------------
+1. In "data.js", find the "chapters" section
+2. Add your new chapter using this template:
+
+```
+{
+    id: 'unique-chapter-id', // Use hyphens between words
+    name: 'Chapter Name',
+    description: 'Brief description of chapter content',
+    difficulty: 'Easy', // or 'Medium' or 'Hard'
+    estimatedTime: '30 mins' // Time needed to complete
+}
+```
+
+3. Then add questions for your new chapter:
+```
+mcqQuestions['unique-chapter-id'] = {
+    set1: [
+        // Add your questions here using the template above
+    ]
+};
+```
+
+ADDING VIDEO CONTENT:
+-----------------
+1. In "data.js", find the "videoContent" section
+2. Add your video using this template:
+
+```
+{
+    title: 'Video Title',
+    description: 'Brief description of video content',
+    url: 'https://youtube.com/watch?v=VIDEO_ID', // or '#' for placeholder
+    thumbnail: 'thumbnail-image-url.jpg', // or use placeholder
+    duration: '5:30' // Video length
+}
+```
+
+ADDING SUMMARY CONTENT:
+-------------------
+1. In "data.js", find the "summaryContent" section
+2. Add your summary using this template:
+
+```
+keyPoints: [
+    'Important point 1',
+    'Important point 2',
+    'Important point 3'
+],
+formulas: [
+    'Formula 1',
+    'Formula 2'
+],
+importantNotes: [
+    'Note 1',
+    'Note 2'
+]
+```
+
+💡 TIPS:
+- Always save a backup copy before making changes
+- Follow the existing format exactly
+- Use commas correctly between items
+- Test your changes by opening index.html in browser
+- Start with small changes and test frequently
+
+Happy Content Creating! 📚✨

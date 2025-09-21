@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Color Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #444;
+        }
+        
+        .option {
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            background: white;
+        }
+        
+        .option:hover {
+            background-color: #f8f9fa;
+            border-color: #bbb;
+        }
+        
+        .option.selected {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+        }
+        
+        .option.correct {
+            background: linear-gradient(135deg, #48bb78, #38a169) !important;
+            border-color: #2f855a !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4) !important;
+        }
+        
+        .option.incorrect {
+            background: linear-gradient(135deg, #e53e3e, #c53030) !important;
+            border-color: #b71c1c !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4) !important;
+        }
+        
+        .option-letter {
+            background: #4a5568;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .option.correct .option-letter {
+            background: #2f855a !important;
+            color: white !important;
+            box-shadow: 0 3px 10px rgba(47, 133, 90, 0.4) !important;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #b71c1c !important;
+            color: white !important;
+            box-shadow: 0 3px 10px rgba(183, 28, 28, 0.4) !important;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .correct-btn {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .incorrect-btn {
+            background: #f44336;
+            color: white;
+        }
+        
+        .reset-btn {
+            background: #ff9800;
+            color: white;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Answer Coloring Test</h1>
+        
+        <div class="instructions">
+            <p><strong>Instructions:</strong> Click on any option to see the coloring effect. Correct answers will turn green, incorrect answers will turn red.</p>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">What is the capital of France?</div>
+            
+            <div class="option" data-index="0">
+                <span class="option-letter">A</span>
+                <span class="option-text">London</span>
+            </div>
+            
+            <div class="option" data-index="1">
+                <span class="option-letter">B</span>
+                <span class="option-text">Berlin</span>
+            </div>
+            
+            <div class="option" data-index="2">
+                <span class="option-letter">C</span>
+                <span class="option-text">Paris (Correct)</span>
+            </div>
+            
+            <div class="option" data-index="3">
+                <span class="option-letter">D</span>
+                <span class="option-text">Madrid</span>
+            </div>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="correct-btn" id="test-correct">Test Correct Answer (C)</button>
+            <button class="incorrect-btn" id="test-incorrect">Test Incorrect Answer (B)</button>
+            <button class="reset-btn" id="reset">Reset All</button>
+        </div>
+    </div>
+
+    <script>
+        // Correct answer index
+        const CORRECT_ANSWER_INDEX = 2;
+        
+        // Add click event listeners to options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const selectedIndex = parseInt(this.dataset.index);
+                selectOption(selectedIndex);
+            });
+        });
+        
+        // Function to select an option
+        function selectOption(selectedIndex) {
+            // Remove all selection classes first
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Check if the selected answer is correct
+            const isCorrect = selectedIndex === CORRECT_ANSWER_INDEX;
+            
+            // Add appropriate class based on correctness
+            const selectedOption = document.querySelector(`[data-index="${selectedIndex}"]`);
+            selectedOption.classList.add('selected');
+            
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+            } else {
+                selectedOption.classList.add('incorrect');
+            }
+        }
+        
+        // Test buttons
+        document.getElementById('test-correct').addEventListener('click', function() {
+            selectOption(2); // Paris is correct
+        });
+        
+        document.getElementById('test-incorrect').addEventListener('click', function() {
+            selectOption(1); // Berlin is incorrect
+        });
+        
+        document.getElementById('reset').addEventListener('click', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Chapter</title>
+    <style>
+        .chapter-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        .chapter-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .difficulty {
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: white;
+        }
+        .time {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Chapter Rendering</h1>
+    <div id="chapter-grid"></div>
+    
+    <script src="data.js"></script>
+    <script>
+        // Simulate the chapter rendering
+        function renderChapters() {
+            const chapterGrid = document.getElementById('chapter-grid');
+            
+            // Get science chapters for class 3
+            const subjectChapters = chapters['science'][3];
+            
+            subjectChapters.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = 'chapter-card';
+                
+                let difficultyColor = '#27ae60';
+                if (chapter.difficulty === 'Medium') difficultyColor = '#f39c12';
+                if (chapter.difficulty === 'Hard') difficultyColor = '#e74c3c';
+                
+                chapterCard.innerHTML = `
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Chapter ${index + 1}</h3>
+                    <h4>${chapter.name}</h4>
+                    <p>${chapter.description}</p>
+                    <div class="chapter-meta">
+                        <span class="difficulty" style="background-color: ${difficultyColor}">${chapter.difficulty}</span>
+                        <span class="time"><i class="fas fa-clock"></i> ${chapter.estimatedTime}</span>
+                    </div>
+                    <div class="chapter-debug">
+                        <small>ID: ${chapter.id}</small>
+                    </div>
+                `;
+                
+                chapterGrid.appendChild(chapterCard);
+            });
+        }
+        
+        // Load Font Awesome for icons
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+        document.head.appendChild(link);
+        
+        // Render chapters when page loads
+        window.onload = renderChapters;
+    </script>
+</body>
+</html>

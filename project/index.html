@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMCQ - Smart Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduMCQ</span>
+            </div>
+            <div class="breadcrumb" id="breadcrumb-path">
+                Welcome
+            </div>
+            <div class="user-info">
+                <span id="user-name">Guest</span>
+                <button id="logout-btn" class="nav-btn logout-btn" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen active">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1><i class="fas fa-graduation-cap"></i> EduMCQ</h1>
+                    <p>Your Smart Learning Companion</p>
+                </div>
+                <form id="login-form" class="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-arrow-right"></i> Start Learning
+                    </button>
+                </form>
+                <div class="login-features">
+                    <div class="feature">
+                        <i class="fas fa-book-open"></i>
+                        <span>Multiple Boards</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-layer-group"></i>
+                        <span>All Classes</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <span>AI-Powered MCQs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Board Selection Screen -->
+        <div id="board-screen" class="screen">
+            <div class="selection-container">
+                <h2><i class="fas fa-school"></i> Select Your Board</h2>
+                <p>Choose your educational board to get customized content</p>
+                <div class="selection-grid">
+                    <div class="selection-card" data-board="cbse">
+                        <div class="card-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>CBSE</h3>
+                        <p>Central Board of Secondary Education</p>
+                        <span class="card-badge">National Curriculum</span>
+                    </div>
+                    <div class="selection-card" data-board="state">
+                        <div class="card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>State Board</h3>
+                        <p>State-specific curriculum and syllabus</p>
+                        <span class="card-badge">Regional Focus</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Class Selection Screen -->
+        <div id="class-screen" class="screen">
+            <div class="selection-container">
+                <h2><i class="fas fa-layer-group"></i> Select Your Class</h2>
+                <p>Choose your class level</p>
+                <div class="class-grid">
+                    <!-- Classes 1-10 will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Subject Selection Screen -->
+        <div id="subject-screen" class="screen">
+            <div class="selection-container">
+                <h2><i class="fas fa-books"></i> Select Subject</h2>
+                <p>Choose a subject to start learning</p>
+                <div class="subject-grid">
+                    <!-- Subjects will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter Selection Screen -->
+        <div id="chapter-screen" class="screen">
+            <div class="selection-container">
+                <h2><i class="fas fa-list-ol"></i> Select Chapter</h2>
+                <p>Choose a chapter to explore</p>
+                <div class="chapter-grid">
+                    <!-- Chapters will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Screen with Tabs -->
+        <div id="content-screen" class="screen">
+            <div class="content-container">
+                <div class="content-header">
+                    <h2 id="content-title">Chapter Content</h2>
+                    <button id="back-to-chapters" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Chapters
+                    </button>
+                </div>
+                    
+                <!-- Tab Navigation - Horizontal Icons -->
+                <div class="tab-navigation">
+                    <button class="tab-btn active" data-tab="mcq-tab">
+                        <i class="fas fa-question-circle"></i>
+                        <span>MCQ</span>
+                    </button>
+                    <button class="tab-btn" data-tab="video-tab">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Videos</span>
+                    </button>
+                    <button class="tab-btn" data-tab="summary-tab">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Summary</span>
+                    </button>
+                    <button class="tab-btn" data-tab="ai-mcq-tab">
+                        <i class="fas fa-robot"></i>
+                        <span>AI MCQ</span>
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- MCQ Sets Tab -->
+                    <div id="mcq-tab" class="tab-pane active">
+                        <div class="mcq-sets-grid">
+                            <!-- MCQ sets will be generated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Videos Tab -->
+                    <div id="video-tab" class="tab-pane">
+                        <div class="video-content">
+                            <!-- Video content will be populated -->
+                        </div>
+                    </div>
+
+                    <!-- Summary Tab -->
+                    <div id="summary-tab" class="tab-pane">
+                        <div class="summary-content">
+                            <!-- Summary content will be populated -->
+                        </div>
+                    </div>
+
+                    <!-- AI MCQ Tab -->
+                    <div id="ai-mcq-tab" class="tab-pane">
+                        <div class="ai-mcq-content">
+                            <!-- AI-generated MCQ content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <button id="exit-quiz" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Exit Quiz
+                    </button>
+                    <div class="quiz-info">
+                        <span class="question-counter">
+                            <i class="fas fa-question"></i>
+                            Question <span id="current-question">1</span> of <span id="total-questions">10</span>
+                        </span>
+                        <span class="quiz-score">
+                            <i class="fas fa-trophy"></i>
+                            Score: <span id="current-score">0</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                    
+                <div class="question-container">
+                    <h3 id="question-text">Question will appear here</h3>
+                    <div id="options-container" class="options-container">
+                        <!-- Options will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="question-footer">
+                    <button id="prev-btn" class="btn btn-secondary" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-btn" class="btn btn-primary" disabled>
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-container">
+                <h2><i class="fas fa-trophy"></i> Quiz Complete!</h2>
+                <div class="score-display">
+                    <div class="final-score">
+                        <span id="final-score">0</span>/<span id="final-total">10</span>
+                    </div>
+                    <div id="score-percentage">0%</div>
+                </div>
+                <div id="performance-message" class="performance-message">
+                    Great job!
+                </div>
+                <div class="results-breakdown">
+                    <div class="result-item correct">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correct: <span id="correct-count">0</span></span>
+                    </div>
+                    <div class="result-item incorrect">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Incorrect: <span id="incorrect-count">0</span></span>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button id="restart-quiz-btn" class="btn btn-primary">
+                        <i class="fas fa-redo"></i> Retake Quiz
+                    </button>
+                    <button id="review-answers-btn" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Review Answers
+                    </button>
+                    <button id="back-to-content-btn" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> Back to Content
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="review-screen" class="screen">
+            <div class="review-container">
+                <div class="review-header">
+                    <h2><i class="fas fa-clipboard-check"></i> Review Your Answers</h2>
+                    <button id="close-review-btn" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Close Review
+                    </button>
+                </div>
+                <div id="review-content">
+                    <!-- Review content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

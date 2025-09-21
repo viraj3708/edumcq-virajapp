@@ -1,0 +1,126 @@
+🚨 EduMCQ Troubleshooting Guide - Fix Common Issues
+
+⚡ QUICK FIXES (Try these first):
+
+1️⃣ GITHUB PAGES NOT WORKING:
+
+❌ Problem: 404 Error or site won't load
+🔧 Solutions:
+□ Check repository is PUBLIC (not private)
+□ Wait 10-15 minutes for deployment
+□ Verify files uploaded correctly
+□ Check Pages settings: Source = "main" branch
+
+❌ Problem: No green checkmark in Pages settings
+🔧 Solutions:
+□ Go to Settings → Pages
+□ Set Source to "Deploy from a branch"
+□ Choose "main" branch and "/ (root)" folder
+□ Click Save and wait
+
+❌ Problem: Files won't upload
+🔧 Solutions:
+□ Make sure repository is public
+□ Use "uploading an existing file" link
+□ Upload all files: index.html, style.css, app.js, data.js
+□ Don't change file names
+
+2️⃣ WEBSITE LOADS BUT BROKEN:
+
+❌ Problem: App loads but looks wrong
+🔧 Solutions:
+□ Verify ALL files uploaded:
+  ✅ index.html
+  ✅ style.css  
+  ✅ app.js
+  ✅ data.js
+  ✅ manifest.json
+  ✅ sw.js
+□ Check file names are EXACT (no spaces, correct case)
+
+❌ Problem: White/blank page
+🔧 Solutions:
+□ Wait 5 more minutes
+□ Check browser console for errors (F12)
+□ Verify index.html is in root folder
+□ Try different browser
+
+3️⃣ MOBILE INSTALLATION ISSUES:
+
+❌ Problem: No "Install" button on mobile
+🔧 Solutions:
+□ Ensure website is HTTPS (GitHub Pages provides this)
+□ Check manifest.json uploaded correctly
+□ Check sw.js (service worker) uploaded
+□ Try Chrome browser on Android
+□ Try Safari on iPhone
+
+❌ Problem: App installs but broken
+🔧 Solutions:
+□ Clear browser cache
+□ Uninstall and reinstall
+□ Check all PWA files present
+
+4️⃣ DESKTOP ACCESS PROBLEMS:
+
+❌ Problem: EduMCQ_App.bat won't work
+🔧 Solutions:
+□ Right-click → "Run as administrator"
+□ Check if Chrome browser installed
+□ Try EduMCQ.bat instead
+□ Double-click index.html directly
+
+❌ Problem: Desktop shortcut not working
+🔧 Solutions:
+□ Run Instant_Icon_Setup.bat again
+□ Check shortcut points to correct folder
+□ Verify all files in same folder
+
+🆘 STEP-BY-STEP VERIFICATION:
+
+STEP 1: Check GitHub Status
+□ Repository is PUBLIC
+□ All files uploaded correctly
+□ Pages enabled in Settings
+□ Green checkmark visible
+
+STEP 2: Test Website URL
+□ Copy URL from GitHub Pages settings
+□ Open in new browser tab
+□ Should load EduMCQ login screen
+□ All styling should look correct
+
+STEP 3: Test Mobile Access
+□ Open same URL on phone
+□ App should look good and responsive
+□ Browser should show install option
+□ Installation should work smoothly
+
+STEP 4: Test Desktop Access
+□ Double-click index.html locally
+□ Should open in browser
+□ All features should work
+□ EduMCQ_App.bat should launch app
+
+🚨 IF STILL NOT WORKING:
+
+1. Tell me EXACTLY what error you see
+2. Share the URL GitHub gave you
+3. Describe what happens when you click it
+4. Tell me which device/browser you're using
+
+📱 ALTERNATIVE TESTING:
+If GitHub Pages isn't working, test locally:
+□ Double-click index.html
+□ Should open in browser
+□ Test all features work
+□ This confirms app files are correct
+
+🎯 MOST COMMON ISSUES:
+1. Repository set to PRIVATE (must be PUBLIC)
+2. Files uploaded to wrong location
+3. Waiting not long enough (needs 10-15 minutes)
+4. File names changed or incorrect
+5. Missing required files
+
+Ready to fix your issue! 🔧✨

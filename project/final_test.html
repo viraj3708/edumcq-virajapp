@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Test</title>
+</head>
+<body>
+    <h1>Final Test for Our Body Chapter</h1>
+    <div id="output"></div>
+    
+    <script src="data.js"></script>
+    <script>
+        function finalTest() {
+            const output = document.getElementById('output');
+            
+            // Check if all required objects exist
+            const requiredObjects = ['chapters', 'mcqQuestions', 'subjects', 'boards'];
+            requiredObjects.forEach(obj => {
+                if (typeof window[obj] !== 'undefined') {
+                    output.innerHTML += `<p style="color: green;">✓ ${obj} object exists</p>`;
+                } else {
+                    output.innerHTML += `<p style="color: red;">✗ ${obj} object missing</p>`;
+                }
+            });
+            
+            // Check science chapters for class 3
+            if (chapters && chapters['science'] && chapters['science'][3]) {
+                output.innerHTML += `<p style="color: green;">✓ Science chapters for class 3 exist</p>`;
+                output.innerHTML += `<p>Total chapters: ${chapters['science'][3].length}</p>`;
+                
+                // List all chapters with their positions
+                chapters['science'][3].forEach((chapter, index) => {
+                    const isOurBody = chapter.id === 'our-body' ? ' (OUR BODY)' : '';
+                    output.innerHTML += `<p>${index + 1}. ${chapter.name} (ID: ${chapter.id})${isOurBody}</p>`;
+                });
+                
+                // Check specifically for our-body chapter
+                const ourBodyChapter = chapters['science'][3].find(chapter => chapter.id === 'our-body');
+                if (ourBodyChapter) {
+                    output.innerHTML += `<h2 style="color: green;">✓ "Our Body" chapter found at position ${chapters['science'][3].indexOf(ourBodyChapter) + 1}!</h2>`;
+                } else {
+                    output.innerHTML += `<h2 style="color: red;">✗ "Our Body" chapter not found!</h2>`;
+                }
+            } else {
+                output.innerHTML += `<p style="color: red;">✗ Science chapters for class 3 not found</p>`;
+            }
+            
+            // Check if our-body questions exist
+            if (mcqQuestions && mcqQuestions['our-body']) {
+                output.innerHTML += `<p style="color: green;">✓ "Our Body" questions exist</p>`;
+                output.innerHTML += `<p>Number of question sets: ${Object.keys(mcqQuestions['our-body']).length}</p>`;
+            } else {
+                output.innerHTML += `<p style="color: red;">✗ "Our Body" questions not found</p>`;
+            }
+        }
+        
+        window.onload = finalTest;
+    </script>
+</body>
+</html>

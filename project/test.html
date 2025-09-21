@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Chapter Rendering</title>
+</head>
+<body>
+    <h1>Testing Chapter Rendering</h1>
+    <script src="data.js"></script>
+    <script>
+        // Test if the "our-body" chapter is properly defined
+        console.log('Chapters object:', chapters);
+        console.log('Science chapters for class 3:', chapters['science'][3]);
+        
+        // Find the "our-body" chapter
+        const ourBodyChapter = chapters['science'][3].find(chapter => chapter.id === 'our-body');
+        console.log('Our Body chapter:', ourBodyChapter);
+        
+        // Test if the questions are properly defined
+        console.log('MCQ Questions object:', mcqQuestions);
+        console.log('Our Body questions:', mcqQuestions['our-body']);
+    </script>
+</body>
+</html>

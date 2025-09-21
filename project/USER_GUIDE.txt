@@ -1,0 +1,145 @@
+🎓 EduMCQ - Complete User Guide
+=========================
+
+Welcome to EduMCQ - your smart learning platform for mastering subjects through interactive quizzes!
+
+## 🚀 GETTING STARTED
+
+### Desktop Use:
+1. Double-click **EduMCQ.bat** to launch the application
+2. Or double-click **index.html** to open in your browser
+3. No installation required - works offline!
+
+### Mobile Use:
+1. Open in Chrome/Safari on your mobile device
+2. Tap the "Share" button
+3. Select "Add to Home Screen"
+4. Launch like a native app
+
+## 🌟 KEY FEATURES
+
+### 1. Interactive MCQs
+- Chapter-wise questions with 4 options each
+- Instant feedback with correct answers shown
+- Detailed explanations for each question
+- Score tracking and progress monitoring
+
+### 2. Video Learning
+- Educational videos for better understanding
+- Direct links to YouTube content
+- Mobile-friendly video player
+
+### 3. Chapter Summaries
+- Key points for quick revision
+- Important formulas and notes
+- Well-organized content sections
+
+### 4. Progress Tracking
+- Automatic saving of quiz attempts
+- Score history for each chapter
+- Date tracking of last attempts
+- Easy retry option for improvement
+
+### 5. Dark Mode
+- Eye-friendly dark theme
+- Toggle with moon/sun icon
+- Settings saved automatically
+
+## 🎯 HOW TO USE
+
+### LOGIN:
+1. Enter your name and email
+2. Click "Start Learning"
+
+### NAVIGATION:
+1. Select your Board (CBSE/State)
+2. Choose your Class
+3. Pick a Subject
+4. Select a Chapter
+5. Explore through MCQs, Videos, and Summaries
+
+### TAKING QUIZZES:
+1. Click on any MCQ Set
+2. Read the question carefully
+3. Select your answer
+4. If wrong, correct answer is shown immediately
+5. Click "Next" to continue
+6. View results at the end
+
+### RETRYING QUIZZES:
+1. Return to MCQ tab
+2. See your previous attempts with scores
+3. Click "Retry Quiz" to try again
+
+## 📱 MOBILE OPTIMIZATION
+
+- Touch-optimized interface
+- Responsive design for all screen sizes
+- Larger buttons for easy tapping
+- Fast loading on mobile networks
+
+## 🌒 DARK MODE
+
+- Click the moon/sun icon in top-right corner
+- Toggle between light and dark themes
+- Preference saved automatically
+
+## 📈 PROGRESS TRACKING
+
+- All quiz attempts are automatically saved
+- Scores displayed on MCQ set cards
+- Dates of last attempts shown
+- Progress persists between sessions
+
+## 📤 SHARING WITH OTHERS
+
+1. Run **Package_for_Sharing.bat**
+2. Get a zip file with all necessary files
+3. Share with students and friends
+4. No technical setup required
+
+## 🖥️ DESKTOP INTEGRATION
+
+1. Run **Create_Desktop_Shortcut.bat**
+2. Get a desktop icon for quick access
+3. Launch like any other application
+
+## 🔧 CONTENT MANAGEMENT
+
+To add new content (no coding experience needed):
+1. Open **data.js** in any text editor
+2. Follow templates in **CONTENT_TEMPLATE.js**
+3. Add new chapters, questions, or content
+4. Save and refresh the application
+
+## 🆘 TROUBLESHOOTING
+
+**Issue: App not opening**
+- Make sure all files are in the same folder
+- Try double-clicking index.html instead
+
+**Issue: Progress not saving**
+- Make sure to complete quizzes fully
+- Don't close browser during quiz
+
+**Issue: Dark mode not working**
+- Refresh the page after toggling
+- Clear browser cache if needed
+
+## 💡 TIPS & TRICKS
+
+1. **Bookmark the app** in your browser for easy access
+2. **Use dark mode** in low-light environments
+3. **Review wrong answers** to learn from mistakes
+4. **Retry quizzes** to improve your scores
+5. **Share with friends** using the packaging tool
+
+## 📚 EDUCATIONAL BENEFITS
+
+- Active learning through quizzes
+- Immediate feedback for better retention
+- Progress tracking for motivation
+- Multi-modal learning (text, video, interactive)
+- Self-paced learning experience
+
+Happy Learning! 📚✨

@@ -1,0 +1,31 @@
+🎓 EduMCQ - Smart Learning Platform
+==============================
+
+📋 Installation Instructions:
+
+OPTION 1: Desktop Shortcut (No Installation Required)
+--------------------------------------------------
+1. Right-click on your desktop
+2. Select "New" → "Shortcut"
+3. Enter the location: "C:\Users\ADMIN\Desktop\project\index.html"
+4. Name it "EduMCQ"
+5. Click "Finish"
+6. Double-click the shortcut to run the app anytime
+
+OPTION 2: Batch File Installation
+------------------------------
+1. Double-click "EduMCQ.bat" to run the application
+2. A browser window will automatically open with the app
+3. Bookmark the page for easy access
+
+OPTION 3: Desktop Integration
+---------------------------
+1. Run "EduMCQ_Icon_Setup.bat" to create a desktop shortcut with custom icon
+2. The shortcut will appear on your desktop
+3. Double-click to launch the application
+
+💡 No internet needed - works offline!
+💡 No complex installation - just double-click to run!
+💡 All your progress is automatically saved
+
+Happy Learning! 📚✨

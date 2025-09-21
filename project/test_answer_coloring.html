@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Answer Coloring</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        
+        .option {
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .option.selected {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+        }
+        
+        .option.correct {
+            background: linear-gradient(135deg, #48bb78, #38a169) !important;
+            border-color: #2f855a !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4) !important;
+        }
+        
+        .option.incorrect {
+            background: linear-gradient(135deg, #e53e3e, #c53030) !important;
+            border-color: #b71c1c !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4) !important;
+        }
+        
+        .option-letter {
+            background: #4a5568;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .option.correct .option-letter {
+            background: #2f855a !important;
+            color: white !important;
+            box-shadow: 0 3px 10px rgba(47, 133, 90, 0.4) !important;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #b71c1c !important;
+            color: white !important;
+            box-shadow: 0 3px 10px rgba(183, 28, 28, 0.4) !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Answer Coloring</h1>
+    
+    <div id="question-container">
+        <h2>What is 2 + 2?</h2>
+        <div id="options-container">
+            <!-- Options will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample question data
+        const question = {
+            question: "What is 2 + 2?",
+            options: ["3", "4", "5", "6"],
+            correctAnswer: 1 // Index of correct answer (4)
+        };
+        
+        // User answers storage
+        const userAnswers = [];
+        const currentQuestionIndex = 0;
+        const currentQuiz = [question];
+        
+        // Function to create option element
+        function createOptionElement(optionText, index) {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'option';
+            optionDiv.dataset.index = index;
+            
+            const letter = String.fromCharCode(65 + index);
+            optionDiv.innerHTML = `
+                <span class="option-letter">${letter}</span>
+                <span class="option-text">${optionText}</span>
+            `;
+            
+            optionDiv.addEventListener('click', () => selectOption(index));
+            
+            return optionDiv;
+        }
+        
+        // Function to select option
+        function selectOption(selectedIndex) {
+            // Remove all selection classes first
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Add selected class to the clicked option
+            const selectedOption = document.querySelector(`[data-index="${selectedIndex}"]`);
+            selectedOption.classList.add('selected');
+            
+            // Check if the selected answer is correct
+            const currentQuestion = currentQuiz[currentQuestionIndex];
+            const isCorrect = selectedIndex === currentQuestion.correctAnswer;
+            
+            // Add appropriate class based on correctness
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+            } else {
+                selectedOption.classList.add('incorrect');
+            }
+            
+            // Store the user's answer
+            userAnswers[currentQuestionIndex] = selectedIndex;
+        }
+        
+        // Initialize the question display
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionsContainer = document.getElementById('options-container');
+            
+            question.options.forEach((option, index) => {
+                const optionElement = createOptionElement(option, index);
+                optionsContainer.appendChild(optionElement);
+            });
+        });
+    </script>
+</body>
+</html>

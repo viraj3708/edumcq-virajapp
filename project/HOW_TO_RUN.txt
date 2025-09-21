@@ -1,0 +1,20 @@
+🎓 EduMCQ - Smart Learning Platform
+
+📋 How to Run This App:
+1. Make sure ALL files are in the same folder
+2. Double-click "EduMCQ.bat" OR "index.html"
+3. Enter your name and email when it opens
+4. Choose your board, class, and subject
+5. Start learning with MCQs, videos, and summaries!
+
+📁 Required Files (don't delete any):
+✅ index.html (main app)
+✅ app.js (functionality)
+✅ data.js (questions & content)
+✅ style.css (design)
+✅ EduMCQ.bat (easy launcher)
+
+💡 No internet needed - works offline!
+💡 No installation required - just double-click to run!
+
+Happy Learning! 📚✨

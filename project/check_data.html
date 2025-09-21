@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Data</title>
+</head>
+<body>
+    <h1>Checking Data Structure</h1>
+    <div id="output"></div>
+    
+    <script src="data.js"></script>
+    <script>
+        function checkData() {
+            const output = document.getElementById('output');
+            
+            // Check if chapters object exists
+            if (typeof chapters === 'undefined') {
+                output.innerHTML = '<p style="color: red;">Error: chapters object is not defined</p>';
+                return;
+            }
+            
+            // Check if science chapters for class 3 exist
+            if (!chapters['science'] || !chapters['science'][3]) {
+                output.innerHTML = '<p style="color: red;">Error: Science chapters for class 3 not found</p>';
+                return;
+            }
+            
+            const scienceChapters = chapters['science'][3];
+            output.innerHTML = '<h2>Science Chapters for Class 3:</h2>';
+            
+            // List all chapters
+            scienceChapters.forEach((chapter, index) => {
+                output.innerHTML += `
+                    <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                        <h3>Chapter ${index + 1}: ${chapter.name}</h3>
+                        <p>ID: ${chapter.id}</p>
+                        <p>Description: ${chapter.description}</p>
+                        <p>Difficulty: ${chapter.difficulty}</p>
+                        <p>Estimated Time: ${chapter.estimatedTime}</p>
+                    </div>
+                `;
+            });
+            
+            // Check specifically for our-body chapter
+            const ourBodyChapter = scienceChapters.find(chapter => chapter.id === 'our-body');
+            if (ourBodyChapter) {
+                output.innerHTML += '<h2 style="color: green;">✓ "Our Body" chapter found!</h2>';
+                output.innerHTML += '<p>Position in array: ' + scienceChapters.indexOf(ourBodyChapter) + '</p>';
+            } else {
+                output.innerHTML += '<h2 style="color: red;">✗ "Our Body" chapter NOT found!</h2>';
+            }
+            
+            // Check if questions exist
+            if (typeof mcqQuestions !== 'undefined' && mcqQuestions['our-body']) {
+                output.innerHTML += '<h2 style="color: green;">✓ "Our Body" questions found!</h2>';
+                output.innerHTML += '<p>Number of question sets: ' + Object.keys(mcqQuestions['our-body']).length + '</p>';
+            } else {
+                output.innerHTML += '<h2 style="color: red;">✗ "Our Body" questions NOT found!</h2>';
+            }
+        }
+        
+        window.onload = checkData;
+    </script>
+</body>
+</html>

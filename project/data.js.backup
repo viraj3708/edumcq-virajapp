@@ -1,0 +1,2610 @@
+// Educational Platform Data Structure
+
+// User data storage
+let currentUser = {
+    name: '',
+    email: '',
+    selectedBoard: '',
+    selectedClass: '',
+    selectedSubject: '',
+    selectedChapter: '',
+    progress: {}
+};
+
+// Educational boards data
+const boards = {
+    cbse: {
+        name: 'CBSE',
+        fullName: 'Central Board of Secondary Education',
+        description: 'National curriculum with standardized syllabus',
+        classes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    state: {
+        name: 'State Board',
+        fullName: 'State Board Education',
+        description: 'State-specific curriculum and regional focus',
+        classes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    }
+};
+
+// Subjects data for each class
+const subjects = {
+    3: [
+        { id: 'english', name: 'English', icon: 'fas fa-language', color: '#3498db' },
+        { id: 'math', name: 'Mathematics', icon: 'fas fa-calculator', color: '#e74c3c' },
+        { id: 'hindi', name: 'Hindi', icon: 'fas fa-font', color: '#f39c12' },
+        { id: 'evs', name: 'Environmental Studies', icon: 'fas fa-leaf', color: '#27ae60' },
+        { id: 'science', name: 'Science', icon: 'fas fa-flask', color: '#9b59b6' },
+        { id: 'social', name: 'Social Science', icon: 'fas fa-globe', color: '#1abc9c' }
+    ],
+    10: [
+        { id: 'english', name: 'English', icon: 'fas fa-language', color: '#3498db' },
+        { id: 'math', name: 'Mathematics', icon: 'fas fa-calculator', color: '#e74c3c' },
+        { id: 'science', name: 'Science', icon: 'fas fa-flask', color: '#9b59b6' },
+        { id: 'social', name: 'Social Science', icon: 'fas fa-globe', color: '#1abc9c' },
+        { id: 'hindi', name: 'Hindi', icon: 'fas fa-font', color: '#f39c12' }
+    ]
+};
+
+// Sample chapters for each subject
+const chapters = {
+    'math': {
+        10: [
+            {
+                id: 'real-numbers',
+                name: 'Real Numbers',
+                description: 'Introduction to real numbers, rational and irrational numbers',
+                difficulty: 'Easy',
+                estimatedTime: '45 mins'
+            },
+            {
+                id: 'polynomials',
+                name: 'Polynomials',
+                description: 'Algebraic expressions, degree of polynomials, zeros of polynomials',
+                difficulty: 'Medium',
+                estimatedTime: '60 mins'
+            }
+        ]
+    },
+    'social': {
+        3: [
+            {
+                id: 'solar-system',
+                name: 'Our Solar System',
+                description: 'Learn about planets, sun, moon and our place in the solar system',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            }
+        ]
+    },
+    'science': {
+        3: [
+            {
+                id: 'living-nonliving',
+                name: 'Living and Non-living Things',
+                description: 'Understanding the differences between living and non-living things',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            },
+            {
+                id: 'parts-of-plants',
+                name: 'Parts of Plants',
+                description: 'Learn about different parts of plants and their functions',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            },
+            {
+                id: 'eating-habits-animals',
+                name: 'Eating Habits of Animals',
+                description: 'Learn about different eating habits of animals and their food chains',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            },
+            {
+                id: 'understanding-birds',
+                name: 'Understanding Birds',
+                description: 'Learn about different features of birds like beaks, claws, feathers and nesting habits',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            },
+            {
+                id: 'staying-safe',
+                name: 'Staying Safe',
+                description: 'Learn about safety rules at home, school, road and in parks',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            },
+            {
+                id: 'housing-clothing',
+                name: 'Housing and Clothing',
+                description: 'Learn about different types of houses and clothing materials',
+                difficulty: 'Easy',
+                estimatedTime: '30 mins'
+            }
+        ]
+    }
+};
+
+// Add questions for Living and Non-living Things chapter
+mcqQuestions['living-nonliving'] = {
+    set1: [
+        {
+            id: 1,
+            question: 'Which of the following is a living thing?',
+            options: ['Chair', 'Puppy', 'Moon', 'Hat'],
+            correctAnswer: 1,
+            explanation: 'A puppy is a living thing because it shows all characteristics of living things like eating, growing, breathing, and responding to its environment.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'Non-living things are those which:',
+            options: ['Eat and grow', 'Do not show any signs of life', 'Reproduce', 'Feel changes in the environment'],
+            correctAnswer: 1,
+            explanation: 'Non-living things do not show any signs of life such as eating, growing, breathing, or reproducing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Which of the following grows from a seed?',
+            options: ['Plant', 'Chair', 'Table', 'Hat'],
+            correctAnswer: 0,
+            explanation: 'Plants grow from seeds. This is one of the characteristics of living things.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Human beings grow from:',
+            options: ['Seed to plant', 'Baby to adult', 'Egg to butterfly', 'None of these'],
+            correctAnswer: 1,
+            explanation: 'Human beings grow from baby to adult. This is a characteristic of all living things.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Which of the following gives energy to living things?',
+            options: ['Toys', 'Food', 'Paper', 'Clothes'],
+            correctAnswer: 1,
+            explanation: 'Food gives energy to all living things. Living things need food to grow and carry out life processes.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Birds migrating in winter is an example of:',
+            options: ['Breathing', 'Responding to environment', 'Reproduction', 'Non-living activity'],
+            correctAnswer: 1,
+            explanation: 'Birds migrating in winter is an example of living things responding to changes in their environment.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 7,
+            question: 'Which of these is a feature of living things?',
+            options: ['Need food, air, water', 'Made by humans', 'Do not grow', 'Stay lifeless'],
+            correctAnswer: 0,
+            explanation: 'All living things need food, air, and water to survive. This is a basic characteristic of life.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Which organ do fish use to breathe?',
+            options: ['Nose', 'Gills', 'Skin', 'Lungs'],
+            correctAnswer: 1,
+            explanation: 'Fish use gills to breathe. Gills help them extract oxygen from water.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'Frogs breathe with the help of:',
+            options: ['Lungs only', 'Nose only', 'Skin and lungs', 'Gills only'],
+            correctAnswer: 2,
+            explanation: 'Frogs can breathe with both their skin and lungs. This is a special feature that helps them survive in different environments.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 10,
+            question: 'Which of the following is not required by non-living things?',
+            options: ['Air', 'Food', 'Water', 'All of these'],
+            correctAnswer: 3,
+            explanation: 'Non-living things do not require air, food, or water as they do not have life processes.',
+            difficulty: 'Medium'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'Harry the teddy bear is:',
+            options: ['Living', 'Non-living', 'Growing', 'Breathing'],
+            correctAnswer: 1,
+            explanation: 'A teddy bear is non-living because it does not show any signs of life like eating, growing, or breathing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 12,
+            question: 'What do living things need to survive?',
+            options: ['Food, water, air', 'Toys', 'Clothes', 'Chairs'],
+            correctAnswer: 0,
+            explanation: 'All living things need food, water, and air to survive. These are essential for carrying out life processes.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 13,
+            question: 'Plants need __________ to prepare food.',
+            options: ['Sunlight, water, carbon dioxide', 'Toys, air, biscuits', 'Moonlight, oil, soil', 'None of these'],
+            correctAnswer: 0,
+            explanation: 'Plants need sunlight, water, and carbon dioxide to prepare their food through the process of photosynthesis.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 14,
+            question: 'Which of these is man-made?',
+            options: ['Sun', 'Moon', 'Chair', 'River'],
+            correctAnswer: 2,
+            explanation: 'A chair is man-made, which means it is created by humans. Sun, moon, and river are natural things.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 15,
+            question: 'Which of these is a natural non-living thing?',
+            options: ['Hat', 'Paper', 'River', 'Chair'],
+            correctAnswer: 2,
+            explanation: 'A river is a natural non-living thing. It exists in nature but does not show signs of life.',
+            difficulty: 'Medium'
+        }
+    ],
+    set4: [
+        {
+            id: 16,
+            question: 'Living things can:',
+            options: ['Reproduce', 'Stay lifeless', 'Be made by humans', 'Never breathe'],
+            correctAnswer: 0,
+            explanation: 'One of the key characteristics of living things is that they can reproduce to produce young ones of their own kind.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 17,
+            question: 'Which of these lays eggs?',
+            options: ['Dogs', 'Cats', 'Birds', 'Humans'],
+            correctAnswer: 2,
+            explanation: 'Birds lay eggs as a method of reproduction. Dogs, cats, and humans give birth to live young ones.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 18,
+            question: 'Humans breathe with the help of:',
+            options: ['Gills', 'Lungs', 'Nose only', 'Skin'],
+            correctAnswer: 1,
+            explanation: 'Humans breathe with the help of lungs. Lungs help us take in oxygen and remove carbon dioxide from our body.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 19,
+            question: 'A toy bone is:',
+            options: ['Living', 'Non-living', 'Growing', 'Breathing'],
+            correctAnswer: 1,
+            explanation: 'A toy bone is non-living because it is made by humans and does not show any signs of life.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 20,
+            question: 'Energy means:',
+            options: ['Power to play only', 'Strength required to do something', 'Toys and biscuits', 'None of these'],
+            correctAnswer: 1,
+            explanation: 'Energy is the strength or power required to do work or carry out different activities.',
+            difficulty: 'Medium'
+        }
+    ],
+    set5: [
+        {
+            id: 21,
+            question: 'Which of these can move on its own?',
+            options: ['Puppy', 'Chair', 'Toy', 'Paper'],
+            correctAnswer: 0,
+            explanation: 'A puppy can move on its own because it is a living thing. Chairs, toys, and paper are non-living and cannot move by themselves.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 22,
+            question: 'Which of these is not alive but still moves with air?',
+            options: ['Dog', 'Cat', 'Windmill', 'Fish'],
+            correctAnswer: 2,
+            explanation: 'A windmill is not alive but moves when air (wind) blows on its blades. This is an example of movement in non-living things due to external force.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 23,
+            question: 'Which energy is obtained from wind?',
+            options: ['Solar energy', 'Wind energy', 'Water energy', 'Fire energy'],
+            correctAnswer: 1,
+            explanation: 'Wind energy is obtained from wind. Wind can be used to generate electricity through windmills.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 24,
+            question: 'Is wind natural or man-made?',
+            options: ['Man-made', 'Natural', 'Artificial', 'None'],
+            correctAnswer: 1,
+            explanation: 'Wind is a natural phenomenon. It is not made by humans.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 25,
+            question: 'Which of these can become pale and lifeless without sunlight?',
+            options: ['Toy', 'Plant', 'Hat', 'River'],
+            correctAnswer: 1,
+            explanation: 'Plants can become pale and lifeless without sunlight because they need sunlight for photosynthesis to make food.',
+            difficulty: 'Medium'
+        }
+    ],
+    set6: [
+        {
+            id: 26,
+            question: 'Which of these shows movement in plants?',
+            options: ['Stem and leaves', 'Toys', 'Paper', 'Moon'],
+            correctAnswer: 0,
+            explanation: 'The stem and leaves of plants show movement. For example, sunflowers move to face the sun, and leaves move with the wind.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 27,
+            question: 'Non-living things can be grouped into:',
+            options: ['Living and non-living', 'Natural and man-made', 'Big and small', 'Food and toys'],
+            correctAnswer: 1,
+            explanation: 'Non-living things can be grouped into natural (like rivers, mountains) and man-made (like chairs, buildings).',
+            difficulty: 'Medium'
+        },
+        {
+            id: 28,
+            question: 'Which of these is affected by weather?',
+            options: ['Living things only', 'Non-living things only', 'Both living and non-living things', 'None of these'],
+            correctAnswer: 2,
+            explanation: 'Both living and non-living things are affected by weather. For example, plants (living) grow with rain, and rocks (non-living) get eroded by wind.',
+            difficulty: 'Hard'
+        },
+        {
+            id: 29,
+            question: 'Living things breathe in air with:',
+            options: ['Food', 'Breathing organs', 'Toys', 'Non-living parts'],
+            correctAnswer: 1,
+            explanation: 'Living things breathe in air with the help of special breathing organs like lungs, gills, or nose.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 30,
+            question: 'Which of these produces young ones of its own kind?',
+            options: ['Humans', 'Plants', 'Birds', 'All of these'],
+            correctAnswer: 3,
+            explanation: 'All living things produce young ones of their own kind. This is called reproduction.',
+            difficulty: 'Easy'
+        }
+    ],
+    set7: [
+        {
+            id: 31,
+            question: 'The Sun is a:',
+            options: ['Natural living thing', 'Natural non-living thing', 'Man-made non-living thing', 'Living creature'],
+            correctAnswer: 1,
+            explanation: 'The Sun is a natural non-living thing. Although it gives heat and light, it does not show other characteristics of living things like eating or growing.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 32,
+            question: 'The Moon is a:',
+            options: ['Man-made non-living thing', 'Natural non-living thing', 'Living thing', 'Plant'],
+            correctAnswer: 1,
+            explanation: 'The Moon is a natural non-living thing. It exists in nature but does not show signs of life.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 33,
+            question: 'A hat is a:',
+            options: ['Natural living thing', 'Man-made non-living thing', 'Natural non-living thing', 'Living thing'],
+            correctAnswer: 1,
+            explanation: 'A hat is a man-made non-living thing. It is created by humans and does not show signs of life.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 34,
+            question: 'A dog is a:',
+            options: ['Non-living thing', 'Living thing', 'Natural non-living thing', 'Man-made thing'],
+            correctAnswer: 1,
+            explanation: 'A dog is a living thing because it shows all characteristics of living things like eating, growing, breathing, and reproducing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 35,
+            question: 'Which of these responds to seasons like spring and autumn?',
+            options: ['Toys', 'Plants', 'Moon', 'Hat'],
+            correctAnswer: 1,
+            explanation: 'Plants respond to seasons. For example, they bloom in spring and shed leaves in autumn.',
+            difficulty: 'Medium'
+        }
+    ],
+    set8: [
+        {
+            id: 36,
+            question: 'Birds migrate in response to:',
+            options: ['Toys', 'Weather changes', 'Humans', 'Chairs'],
+            correctAnswer: 1,
+            explanation: 'Birds migrate in response to weather changes. This is an example of living things responding to their environment.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 37,
+            question: 'Which of these shows no signs of life?',
+            options: ['Puppy', 'Teddy bear', 'Fish', 'Human'],
+            correctAnswer: 1,
+            explanation: 'A teddy bear shows no signs of life. It is a non-living thing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 38,
+            question: 'Living and non-living things both:',
+            options: ['Occupy space and have weight', 'Eat and breathe', 'Reproduce', 'Grow'],
+            correctAnswer: 0,
+            explanation: 'Both living and non-living things occupy space and have weight. This is a common property of all matter.',
+            difficulty: 'Hard'
+        },
+        {
+            id: 39,
+            question: 'Matter means:',
+            options: ['Toys', 'Substances that make up all living and non-living things', 'Only living substances', 'Things made by humans only'],
+            correctAnswer: 1,
+            explanation: 'Matter means substances that make up all living and non-living things. Everything around us is made up of matter.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 40,
+            question: 'Living and non-living things are both:',
+            options: ['Important for life', 'Useless for life', 'Toys', 'Chairs'],
+            correctAnswer: 0,
+            explanation: 'Both living and non-living things are important for life. Living things need non-living things like air, water, and soil to survive.',
+            difficulty: 'Medium'
+        }
+    ]
+};
+
+// Add the new questions to the main mcqQuestions object
+mcqQuestions['living-nonliving'] = livingNonlivingQuestions;
+
+// MCQ questions for Parts of Plants chapter
+mcqQuestions['parts-of-plants'] = {
+    set1: [
+        {
+            id: 1,
+            question: 'Which part of the plant fixes it into the soil?',
+            options: ['Stem', 'Root', 'Leaf', 'Flower'],
+            correctAnswer: 1,
+            explanation: 'Roots fix the plant into the soil and absorb water and minerals from it.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'Roots absorb ________ from the soil.',
+            options: ['Air and light', 'Water and minerals', 'Fruits and seeds', 'Oxygen only'],
+            correctAnswer: 1,
+            explanation: 'Roots absorb water and minerals from the soil which are essential for the plant\'s growth.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Carrot is an example of:',
+            options: ['Fibrous root', 'Taproot', 'Stem', 'Leaf'],
+            correctAnswer: 1,
+            explanation: 'Carrot is a taproot which grows straight down into the soil.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Fibrous roots are found in:',
+            options: ['Carrot', 'Radish', 'Wheat', 'Mustard'],
+            correctAnswer: 2,
+            explanation: 'Wheat has fibrous roots which consist of many thin branches arising from the base of the stem.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Which of the following roots stores food?',
+            options: ['Grass', 'Onion', 'Radish', 'Paddy'],
+            correctAnswer: 2,
+            explanation: 'Radish is a root that stores food for the plant.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Taproot has:',
+            options: ['Many small roots', 'One main root with small branches', 'No roots', 'Fibrous hairs only'],
+            correctAnswer: 1,
+            explanation: 'Taproot system has one main root with smaller branches growing from it.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 7,
+            question: 'Fibrous roots are seen in:',
+            options: ['Mango', 'Bean', 'Onion', 'Carrot'],
+            correctAnswer: 2,
+            explanation: 'Onion has fibrous roots which are thin and branch-like.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Roots help plants by:',
+            options: ['Preparing food', 'Transporting water', 'Fixing and absorbing nutrients', 'Producing flowers'],
+            correctAnswer: 2,
+            explanation: 'Roots help plants by fixing them to the ground and absorbing water and nutrients from the soil.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'Which part of a plant keeps it upright?',
+            options: ['Root', 'Stem', 'Leaf', 'Flower'],
+            correctAnswer: 1,
+            explanation: 'The stem keeps the plant upright and supports the leaves, flowers and fruits.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 10,
+            question: 'The stem carries _______ from roots to other parts.',
+            options: ['Food', 'Water and minerals', 'Fruits', 'Seeds'],
+            correctAnswer: 1,
+            explanation: 'The stem carries water and minerals absorbed by roots to other parts of the plant.',
+            difficulty: 'Easy'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'Which plant\'s stem stores food?',
+            options: ['Mango', 'Sugarcane', 'Grass', 'Paddy'],
+            correctAnswer: 1,
+            explanation: 'Sugarcane stem stores food in the form of sugar.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 12,
+            question: 'Cactus stem stores:',
+            options: ['Air', 'Water', 'Fruits', 'Minerals only'],
+            correctAnswer: 1,
+            explanation: 'Cactus stem stores water to help the plant survive in dry conditions.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 13,
+            question: 'Which part bears leaves, flowers and fruits?',
+            options: ['Root', 'Stem', 'Leaf blade', 'Sepal'],
+            correctAnswer: 1,
+            explanation: 'The stem bears leaves, flowers and fruits.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 14,
+            question: 'Which part is called the "kitchen of the plant"?',
+            options: ['Flower', 'Leaf', 'Stem', 'Fruit'],
+            correctAnswer: 1,
+            explanation: 'Leaf is called the kitchen of the plant because it prepares food through photosynthesis.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 15,
+            question: 'Which pigment helps leaves to absorb sunlight?',
+            options: ['Hemoglobin', 'Chlorophyll', 'Oxygen', 'Water'],
+            correctAnswer: 1,
+            explanation: 'Chlorophyll is the green pigment in leaves that helps absorb sunlight for photosynthesis.',
+            difficulty: 'Easy'
+        }
+    ],
+    set4: [
+        {
+            id: 16,
+            question: 'The flat broad part of a leaf is called:',
+            options: ['Midrib', 'Leaf blade (lamina)', 'Stalk', 'Vein'],
+            correctAnswer: 1,
+            explanation: 'The flat broad part of a leaf is called the leaf blade or lamina.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 17,
+            question: 'The central thick line in a leaf is called:',
+            options: ['Midrib', 'Veins', 'Stomata', 'Petiole'],
+            correctAnswer: 0,
+            explanation: 'The central thick line in a leaf is called the midrib.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 18,
+            question: 'Tiny pores on the leaf surface are called:',
+            options: ['Midrib', 'Stomata', 'Veins', 'Sepals'],
+            correctAnswer: 1,
+            explanation: 'Tiny pores on the leaf surface are called stomata which help in breathing and transpiration.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 19,
+            question: 'The part that connects a leaf to the branch is:',
+            options: ['Vein', 'Midrib', 'Petiole (leaf stalk)', 'Sepal'],
+            correctAnswer: 2,
+            explanation: 'The petiole or leaf stalk connects the leaf to the branch.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 20,
+            question: 'Function of veins in leaves is:',
+            options: ['Only decoration', 'Carrying water and food', 'Making flowers', 'None of these'],
+            correctAnswer: 1,
+            explanation: 'Veins in leaves carry water and food to different parts of the leaf.',
+            difficulty: 'Easy'
+        }
+    ],
+    set5: [
+        {
+            id: 21,
+            question: 'Which part of the plant is brightly coloured?',
+            options: ['Stem', 'Petal', 'Midrib', 'Seed'],
+            correctAnswer: 1,
+            explanation: 'Petals are the brightly coloured parts of a flower.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 22,
+            question: 'Sepals protect the flower when it is in:',
+            options: ['Leaf stage', 'Bud stage', 'Fruit stage', 'Seed stage'],
+            correctAnswer: 1,
+            explanation: 'Sepals protect the flower when it is in the bud stage.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 23,
+            question: 'Flowers often change into:',
+            options: ['Seeds directly', 'Fruits', 'Roots', 'Branches'],
+            correctAnswer: 1,
+            explanation: 'After fertilization, flowers develop into fruits.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 24,
+            question: 'Which of these is an edible flower?',
+            options: ['Mango flower', 'Broccoli', 'Apple flower', 'Guava flower'],
+            correctAnswer: 1,
+            explanation: 'Broccoli is an edible flower.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 25,
+            question: 'Flowers attract bees and butterflies because:',
+            options: ['They are green', 'They are colourful and sweet-smelling', 'They have roots', 'They are fibrous'],
+            correctAnswer: 1,
+            explanation: 'Flowers attract bees and butterflies with their bright colors and sweet smell.',
+            difficulty: 'Easy'
+        }
+    ],
+    set6: [
+        {
+            id: 26,
+            question: 'The main function of fruit is to:',
+            options: ['Prepare food', 'Protect seeds', 'Absorb water', 'Store minerals'],
+            correctAnswer: 1,
+            explanation: 'The main function of fruit is to protect the seeds inside it.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 27,
+            question: 'Mango contains:',
+            options: ['Many seeds', 'One seed', 'Two seeds', 'No seeds'],
+            correctAnswer: 1,
+            explanation: 'Mango contains one seed inside it.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 28,
+            question: 'Pomegranate contains:',
+            options: ['Many seeds', 'One seed', 'No seed', 'Few seeds only'],
+            correctAnswer: 0,
+            explanation: 'Pomegranate contains many seeds inside it.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 29,
+            question: 'Apples usually have:',
+            options: ['No seeds', 'A few seeds', 'One seed', 'Many seeds'],
+            correctAnswer: 1,
+            explanation: 'Apples usually have a few seeds inside them.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 30,
+            question: 'Which of these is a fleshy fruit?',
+            options: ['Mango', 'Orange', 'Apple', 'All of these'],
+            correctAnswer: 3,
+            explanation: 'All of these are fleshy fruits with soft pulp.',
+            difficulty: 'Easy'
+        }
+    ],
+    set7: [
+        {
+            id: 31,
+            question: 'The process by which seeds grow into new plants is called:',
+            options: ['Photosynthesis', 'Germination', 'Reproduction', 'Absorption'],
+            correctAnswer: 1,
+            explanation: 'Germination is the process by which seeds grow into new plants.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 32,
+            question: 'Seeds need _______ to germinate.',
+            options: ['Soil, water, sunlight', 'Toys and soil', 'Air only', 'Rain only'],
+            correctAnswer: 0,
+            explanation: 'Seeds need soil, water and sunlight to germinate properly.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 33,
+            question: 'Which seed is edible?',
+            options: ['Mango seed', 'Rice seed', 'Apple seed', 'Orange seed'],
+            correctAnswer: 1,
+            explanation: 'Rice seed is edible and is a major food source for many people.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 34,
+            question: 'Seeds store:',
+            options: ['Water for the plant', 'Food for the new plant', 'Flowers', 'Oxygen'],
+            correctAnswer: 1,
+            explanation: 'Seeds store food which nourishes the new plant when it germinates.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 35,
+            question: 'Wheat and corn are examples of:',
+            options: ['Roots', 'Leaves', 'Edible seeds', 'Fruits'],
+            correctAnswer: 2,
+            explanation: 'Wheat and corn are examples of edible seeds.',
+            difficulty: 'Easy'
+        }
+    ],
+    set8: [
+        {
+            id: 36,
+            question: 'Which part of spinach is eaten?',
+            options: ['Root', 'Stem', 'Leaf', 'Seed'],
+            correctAnswer: 2,
+            explanation: 'The leaf part of spinach is eaten as a vegetable.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 37,
+            question: 'If roots of a sapling are cut, what happens?',
+            options: ['It grows faster', 'It wilts', 'It flowers', 'It produces fruits'],
+            correctAnswer: 1,
+            explanation: 'If roots are cut, the plant cannot absorb water and nutrients, so it wilts.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 38,
+            question: 'Which plant stores food in its stem?',
+            options: ['Grass', 'Cactus', 'Mango', 'Paddy'],
+            correctAnswer: 1,
+            explanation: 'Cactus stores food in its stem to survive in dry conditions.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 39,
+            question: 'Which gas is released by leaves during food making?',
+            options: ['Carbon dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
+            correctAnswer: 1,
+            explanation: 'Oxygen is released by leaves during photosynthesis.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 40,
+            question: 'The part of a plant that makes it look pretty and attractive is:',
+            options: ['Root', 'Stem', 'Flower', 'Seed'],
+            correctAnswer: 2,
+            explanation: 'Flowers make the plant look pretty and attractive.',
+            difficulty: 'Easy'
+        }
+    ]
+};
+
+// MCQ questions for Eating Habits of Animals chapter
+mcqQuestions['eating-habits-animals'] = {
+    set1: [
+        {
+            id: 1,
+            question: 'Animals that eat green plants are called:',
+            options: ['Carnivores', 'Herbivores', 'Omnivores', 'Scavengers'],
+            correctAnswer: 1,
+            explanation: 'Herbivores are animals that eat only plants or plant products.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'Which of these is a herbivore?',
+            options: ['Tiger', 'Giraffe', 'Fox', 'Wolf'],
+            correctAnswer: 1,
+            explanation: 'Giraffe is a herbivore as it feeds on leaves and plants.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Animals that eat flesh of other animals are called:',
+            options: ['Carnivores', 'Herbivores', 'Omnivores', 'Scavengers'],
+            correctAnswer: 0,
+            explanation: 'Carnivores are animals that eat the flesh of other animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Lion belongs to which category?',
+            options: ['Herbivore', 'Carnivore', 'Omnivore', 'Scavenger'],
+            correctAnswer: 1,
+            explanation: 'Lion is a carnivore as it hunts and eats other animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Animals that eat only dead animals are called:',
+            options: ['Herbivores', 'Omnivores', 'Scavengers', 'Carnivores'],
+            correctAnswer: 2,
+            explanation: 'Scavengers feed on dead animals and decaying organic matter.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Which of the following is a scavenger?',
+            options: ['Cow', 'Vulture', 'Rat', 'Giraffe'],
+            correctAnswer: 1,
+            explanation: 'Vulture is a scavenger that feeds on dead animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 7,
+            question: 'Animals that eat both plants and flesh of animals are called:',
+            options: ['Scavengers', 'Carnivores', 'Herbivores', 'Omnivores'],
+            correctAnswer: 3,
+            explanation: 'Omnivores eat both plants and animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Crow is an example of:',
+            options: ['Herbivore', 'Carnivore', 'Omnivore', 'Scavenger'],
+            correctAnswer: 2,
+            explanation: 'Crow is an omnivore as it eats both grains and small insects.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'Which of the following animals chews cud?',
+            options: ['Cow', 'Tiger', 'Snake', 'Fox'],
+            correctAnswer: 0,
+            explanation: 'Cows chew cud, which is the process of bringing back swallowed food to chew it again.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 10,
+            question: 'The process in which animals bring back swallowed food to chew again is called:',
+            options: ['Gnawing', 'Chewing the cud', 'Grinding', 'Swallowing'],
+            correctAnswer: 1,
+            explanation: 'Chewing the cud is the process where animals like cows bring back swallowed food to chew it again.',
+            difficulty: 'Easy'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'Which animal is an example of a gnawer?',
+            options: ['Elephant', 'Rat', 'Lion', 'Giraffe'],
+            correctAnswer: 1,
+            explanation: 'Rats are gnawers that constantly chew to keep their teeth sharp.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 12,
+            question: 'Animals that swallow food whole include:',
+            options: ['Snake', 'Lion', 'Cow', 'Fox'],
+            correctAnswer: 0,
+            explanation: 'Snakes swallow their prey whole as they don\'t have teeth for chewing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 13,
+            question: 'A frog captures insects using its:',
+            options: ['Teeth', 'Tongue', 'Claws', 'Beak'],
+            correctAnswer: 1,
+            explanation: 'Frogs use their long sticky tongue to catch insects.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 14,
+            question: 'Butterflies suck nectar using:',
+            options: ['Teeth', 'Beak', 'Long sucking tube', 'Trunk'],
+            correctAnswer: 2,
+            explanation: 'Butterflies have a long sucking tube called proboscis to suck nectar from flowers.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 15,
+            question: 'Bees and mosquitoes suck food using:',
+            options: ['Trunk', 'Hollow tubes', 'Tongue', 'Beak'],
+            correctAnswer: 1,
+            explanation: 'Bees and mosquitoes have hollow tubes to suck nectar and blood respectively.',
+            difficulty: 'Easy'
+        }
+    ],
+    set4: [
+        {
+            id: 16,
+            question: 'Elephants eat leaves with the help of:',
+            options: ['Teeth', 'Trunk', 'Tusks', 'Tongue'],
+            correctAnswer: 1,
+            explanation: 'Elephants use their trunk to grasp and bring leaves to their mouth.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 17,
+            question: 'Earthworms swallow:',
+            options: ['Flesh', 'Soil with dead plants and animals', 'Fruits', 'Nectar'],
+            correctAnswer: 1,
+            explanation: 'Earthworms eat soil containing dead plants and animals which helps in decomposition.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 18,
+            question: 'Animals that tear and chew flesh have:',
+            options: ['Sharp flat front teeth', 'Sharp pointed curved teeth', 'Hollow tubes', 'Trunk'],
+            correctAnswer: 1,
+            explanation: 'Carnivores have sharp pointed curved teeth called canines to tear flesh.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 19,
+            question: 'Fox belongs to which category?',
+            options: ['Herbivore', 'Omnivore', 'Scavenger', 'Carnivore'],
+            correctAnswer: 3,
+            explanation: 'Fox is a carnivore that hunts small animals for food.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 20,
+            question: 'The chain that shows how plants are eaten by animals and animals eaten by other animals is called:',
+            options: ['Food circle', 'Food pyramid', 'Food chain', 'Food group'],
+            correctAnswer: 2,
+            explanation: 'A food chain shows the sequence of who eats whom in an ecosystem.',
+            difficulty: 'Easy'
+        }
+    ],
+    set5: [
+        {
+            id: 21,
+            question: 'Which of the following is the first in a food chain?',
+            options: ['Lion', 'Snake', 'Plant', 'Eagle'],
+            correctAnswer: 2,
+            explanation: 'Plants are producers and form the beginning of every food chain.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 22,
+            question: 'Which animal eats leaves, roots, and grass?',
+            options: ['Tiger', 'Elephant', 'Fox', 'Wolf'],
+            correctAnswer: 1,
+            explanation: 'Elephants are herbivores that eat various plant parts including leaves, roots, and grass.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 23,
+            question: 'Which animal can be both scavenger and carnivore sometimes?',
+            options: ['Dog', 'Tiger', 'Jackal', 'Giraffe'],
+            correctAnswer: 2,
+            explanation: 'Jackals can act as both scavengers when feeding on dead animals and carnivores when hunting.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 24,
+            question: 'Which animal swallows insects whole?',
+            options: ['Cow', 'Frog', 'Leopard', 'Rat'],
+            correctAnswer: 1,
+            explanation: 'Frogs catch insects with their tongue and swallow them whole.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 25,
+            question: 'Which of the following is an omnivore?',
+            options: ['Cow', 'Squirrel', 'Leopard', 'Hyena'],
+            correctAnswer: 1,
+            explanation: 'Squirrels eat both nuts (plants) and insects (animals), making them omnivores.',
+            difficulty: 'Easy'
+        }
+    ],
+    set6: [
+        {
+            id: 26,
+            question: 'Hyena eats mainly:',
+            options: ['Grass', 'Dead animals', 'Fruits', 'Insects'],
+            correctAnswer: 1,
+            explanation: 'Hyenas are primarily scavengers that feed on dead animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 27,
+            question: 'The eagle is placed at the ______ of the food chain.',
+            options: ['Beginning', 'Middle', 'End', 'Nowhere'],
+            correctAnswer: 2,
+            explanation: 'Eagles are apex predators and are placed at the end of the food chain.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 28,
+            question: 'Which of these has hollow sucking tubes?',
+            options: ['Butterfly', 'Mosquito', 'Elephant', 'Rat'],
+            correctAnswer: 1,
+            explanation: 'Mosquitoes have hollow sucking tubes to suck blood from animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 29,
+            question: 'Which animal gnaws nuts and seeds?',
+            options: ['Cow', 'Squirrel', 'Tiger', 'Snake'],
+            correctAnswer: 1,
+            explanation: 'Squirrels gnaw nuts and seeds with their sharp front teeth.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 30,
+            question: 'Leopard is an example of:',
+            options: ['Herbivore', 'Omnivore', 'Carnivore', 'Scavenger'],
+            correctAnswer: 2,
+            explanation: 'Leopard is a carnivore that hunts and eats other animals.',
+            difficulty: 'Easy'
+        }
+    ],
+    set7: [
+        {
+            id: 31,
+            question: 'Animals eat different food because of their:',
+            options: ['Colour', 'Teeth and body structure', 'Habitat', 'Size'],
+            correctAnswer: 1,
+            explanation: 'The teeth and body structure of animals are adapted to their diet.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 32,
+            question: 'The main source of food for all animals is:',
+            options: ['Plants', 'Flesh', 'Soil', 'Air'],
+            correctAnswer: 0,
+            explanation: 'Plants are the primary source of food as they produce food through photosynthesis.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 33,
+            question: 'A caterpillar is eaten by:',
+            options: ['Snake', 'Eagle', 'Sparrow', 'Tiger'],
+            correctAnswer: 2,
+            explanation: 'Sparrows and other birds commonly eat caterpillars.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 34,
+            question: 'Snake eats:',
+            options: ['Plants', 'Fish', 'Sparrow', 'Grass'],
+            correctAnswer: 2,
+            explanation: 'Snakes are carnivores that eat birds, rats, and other small animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 35,
+            question: 'Which is an example of scavenger bird?',
+            options: ['Sparrow', 'Crow', 'Vulture', 'Pigeon'],
+            correctAnswer: 2,
+            explanation: 'Vultures are scavenger birds that feed on dead animals.',
+            difficulty: 'Easy'
+        }
+    ],
+    set8: [
+        {
+            id: 36,
+            question: 'Which animal has flat back teeth to chew?',
+            options: ['Cow', 'Snake', 'Tiger', 'Wolf'],
+            correctAnswer: 0,
+            explanation: 'Cows have flat back teeth called molars to grind plant material.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 37,
+            question: 'Which animal uses its tusks for food?',
+            options: ['Elephant', 'Lion', 'Fox', 'Deer'],
+            correctAnswer: 0,
+            explanation: 'Elephants use their tusks to uproot trees and dig for food.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 38,
+            question: 'Which of these is NOT an omnivore?',
+            options: ['Rat', 'Crow', 'Giraffe', 'Mouse'],
+            correctAnswer: 2,
+            explanation: 'Giraffes are herbivores that eat only plants, not animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 39,
+            question: 'The role of plants in a food chain is to:',
+            options: ['Produce food', 'Eat animals', 'Hunt', 'Decompose'],
+            correctAnswer: 0,
+            explanation: 'Plants are producers that make food through photosynthesis.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 40,
+            question: 'Animals that depend on plants directly or indirectly are:',
+            options: ['Only herbivores', 'Only carnivores', 'All animals', 'Only omnivores'],
+            correctAnswer: 2,
+            explanation: 'All animals depend on plants either directly (herbivores) or indirectly (carnivores and omnivores).',
+            difficulty: 'Easy'
+        }
+    ]
+};
+
+// MCQ questions for Staying Safe chapter
+mcqQuestions['staying-safe'] = {
+    set1: [
+        {
+            id: 1,
+            question: 'What should you avoid touching with wet hands?',
+            options: ['Books', 'Electrical appliances', 'Toys', 'Clothes'],
+            correctAnswer: 1,
+            explanation: 'Electrical appliances should never be touched with wet hands as water conducts electricity and can cause electric shock.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'Why should we not run on wet floors?',
+            options: ['We may get tired', 'We could slip and get hurt', 'It makes the floor dirty', 'Teachers scold us'],
+            correctAnswer: 1,
+            explanation: 'Wet floors are slippery and running on them can cause you to slip and fall, resulting in injuries.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Where should we keep bags and toys to avoid tripping?',
+            options: ['On the bed', 'On the chair', 'Off the floor', 'Near the door'],
+            correctAnswer: 2,
+            explanation: 'Keeping bags and toys off the floor prevents tripping hazards that could cause falls and injuries.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Playing with fire is __________.',
+            options: ['Fun', 'Dangerous', 'Safe', 'Necessary'],
+            correctAnswer: 1,
+            explanation: 'Playing with fire is extremely dangerous and can cause severe burns and injuries.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Which of these objects is not safe to play with?',
+            options: ['Ball', 'Knife', 'Doll', 'Toy car'],
+            correctAnswer: 1,
+            explanation: 'Knives are sharp objects that can cause cuts and injuries if played with.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Why should we not take medicine without advice?',
+            options: ['It may be too costly', 'It may be harmful', 'It tastes bad', 'It is unnecessary'],
+            correctAnswer: 1,
+            explanation: 'Medicines can be harmful if taken without proper guidance as they may have side effects or interact with other medicines.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 7,
+            question: 'What may happen if you walk barefoot on an electric wire?',
+            options: ['Nothing happens', 'Electric shock', 'Slip and fall', 'Medicine needed'],
+            correctAnswer: 1,
+            explanation: 'Walking barefoot on electric wires can cause severe electric shock which can be life-threatening.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Why should you not wander in the dark during power cuts?',
+            options: ['You might get lost', 'You may trip over furniture', 'It is fun', 'Parents allow it'],
+            correctAnswer: 1,
+            explanation: 'In the dark, you may not see obstacles like furniture, stairs, or other items which can cause you to trip and get hurt.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'How should students board a bus?',
+            options: ['By pushing others', 'By running fast', 'In a queue', 'By climbing windows'],
+            correctAnswer: 2,
+            explanation: 'Students should board a bus in a queue to ensure everyone gets in safely without pushing or rushing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 10,
+            question: 'What should you avoid while waiting on stairs?',
+            options: ['Standing still', 'Pushing others', 'Holding railing', 'Talking'],
+            correctAnswer: 1,
+            explanation: 'Pushing others on stairs is dangerous and can cause falls and injuries to yourself and others.',
+            difficulty: 'Easy'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'Which of these is a temporary house?',
+            options: ['House boat', 'Apartment', 'Bungalow', 'Farm house'],
+            correctAnswer: 0,
+            explanation: 'House boats are temporary houses that can be moved from one place to another as per requirement.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'Tents are made of:',
+            options: ['Cotton', 'Silk', 'Canvas', 'Wool'],
+            correctAnswer: 2,
+            explanation: 'Tents are usually made of canvas or synthetic materials that are waterproof and lightweight.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Which house is built on poles high above the ground?',
+            options: ['House boat', 'Stilt house', 'Caravan', 'Igloo'],
+            correctAnswer: 1,
+            explanation: 'Stilt houses are built on poles high above the ground to protect from floods and wild animals.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Igloos are made of:',
+            options: ['Wood', 'Ice and snow', 'Mud', 'Bricks'],
+            correctAnswer: 1,
+            explanation: 'Igloos are temporary houses made of ice and snow by the Eskimos in extremely cold regions.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Which type of house has thick walls and small windows?',
+            options: ['Houses in hot areas', 'Houses in cold areas', 'Houses in moderate climate', 'House boats'],
+            correctAnswer: 1,
+            explanation: 'Houses in cold areas have thick walls and small windows to keep the house warm inside.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Houses in hot areas have:',
+            options: ['Thick walls and small windows', 'Thin walls and large windows', 'No windows', 'Only doors'],
+            correctAnswer: 1,
+            explanation: 'Houses in hot areas have thin walls and large windows to allow air circulation and keep the house cool.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 7,
+            question: 'Caravans are:',
+            options: ['Permanent houses', 'Temporary houses on wheels', 'Houses made of ice', 'Houses on stilts'],
+            correctAnswer: 1,
+            explanation: 'Caravans are temporary houses built on wheels that can be moved from one place to another.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Which material is commonly used for making tents?',
+            options: ['Cement', 'Canvas', 'Glass', 'Steel'],
+            correctAnswer: 1,
+            explanation: 'Canvas is a strong, durable fabric that is commonly used for making tents as it is waterproof and lightweight.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'Eskimos live in:',
+            options: ['Stilt houses', 'House boats', 'Igloos', 'Caravans'],
+            correctAnswer: 2,
+            explanation: 'Eskimos live in igloos which are houses made of ice and snow in extremely cold regions.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 10,
+            question: 'Houses in coastal areas are built with:',
+            options: ['Wood and bamboo', 'Only bricks', 'Only cement', 'Glass only'],
+            correctAnswer: 0,
+            explanation: 'Houses in coastal areas are often built with wood and bamboo as these materials can withstand humid conditions.',
+            difficulty: 'Easy'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'What is the main purpose of having thick walls in cold climate houses?',
+            options: ['To make the house look beautiful', 'To keep the house warm', 'To save money', 'To make the house heavy'],
+            correctAnswer: 1,
+            explanation: 'Thick walls in cold climate houses help to insulate the house and keep it warm by preventing heat loss.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 12,
+            question: 'Which of these is NOT a natural material for clothing?',
+            options: ['Cotton', 'Silk', 'Polyester', 'Wool'],
+            correctAnswer: 2,
+            explanation: 'Polyester is a synthetic material made in factories, while cotton, silk, and wool are natural materials.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 13,
+            question: 'Cotton clothes are preferred in:',
+            options: ['Winter', 'Summer', 'Rainy season', 'All seasons'],
+            correctAnswer: 1,
+            explanation: 'Cotton clothes are preferred in summer as they absorb sweat and allow air to pass through, keeping us cool.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 14,
+            question: 'Wool is obtained from:',
+            options: ['Plants', 'Animals', 'Insects', 'Rocks'],
+            correctAnswer: 1,
+            explanation: 'Wool is obtained from animals like sheep, goats, and yaks.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 15,
+            question: 'Silk is obtained from:',
+            options: ['Cotton plants', 'Silkworms', 'Sheep', 'Cows'],
+            correctAnswer: 1,
+            explanation: 'Silk is obtained from silkworms. The cocoons of silkworms are used to make silk fibers.',
+            difficulty: 'Easy'
+        }
+    ],
+    set4: [
+        {
+            id: 16,
+            question: 'Which fabric is best for cold weather?',
+            options: ['Cotton', 'Silk', 'Wool', 'Nylon'],
+            correctAnswer: 2,
+            explanation: 'Wool is the best fabric for cold weather as it traps air and provides insulation, keeping the body warm.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 17,
+            question: 'Raincoats are usually made of:',
+            options: ['Cotton', 'Wool', 'Waterproof material', 'Silk'],
+            correctAnswer: 2,
+            explanation: 'Raincoats are made of waterproof materials like plastic or treated fabrics to protect from rain.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 18,
+            question: 'Jute is a _______ fiber.',
+            options: ['Synthetic', 'Animal', 'Plant', 'Mineral'],
+            correctAnswer: 2,
+            explanation: 'Jute is a plant fiber obtained from the jute plant. It is used to make burlap, hessian, or gunny cloth.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 19,
+            question: 'Which of these is a synthetic fiber?',
+            options: ['Cotton', 'Silk', 'Nylon', 'Wool'],
+            correctAnswer: 2,
+            explanation: 'Nylon is a synthetic fiber made in factories, while cotton, silk, and wool are natural fibers.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 20,
+            question: 'People in deserts prefer to wear:',
+            options: ['Heavy woolen clothes', 'Light cotton clothes', 'Silk clothes', 'Synthetic clothes'],
+            correctAnswer: 1,
+            explanation: 'People in deserts prefer light cotton clothes as they absorb sweat and help to keep the body cool.',
+            difficulty: 'Easy'
+        }
+    ],
+    set5: [
+        {
+            id: 21,
+            question: 'Which of these clothes is best for rainy season?',
+            options: ['Cotton', 'Silk', 'Waterproof', 'Wool'],
+            correctAnswer: 2,
+            explanation: 'Waterproof clothes are best for rainy season as they do not allow water to pass through and keep us dry.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 22,
+            question: 'We wear woolen clothes in winter because they:',
+            options: ['Look beautiful', 'Are expensive', 'Keep us warm', 'Are soft'],
+            correctAnswer: 2,
+            explanation: 'Woolen clothes keep us warm in winter because wool traps air which acts as an insulator.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 23,
+            question: 'Which of these is a plant fiber?',
+            options: ['Wool', 'Silk', 'Cotton', 'Nylon'],
+            correctAnswer: 2,
+            explanation: 'Cotton is a plant fiber obtained from the cotton plant. Wool and silk are animal fibers, nylon is synthetic.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 24,
+            question: 'We wear light colored clothes in summer because:',
+            options: ['They are cheaper', 'They reflect heat', 'They look nice', 'They are easy to wash'],
+            correctAnswer: 1,
+            explanation: 'Light colored clothes reflect heat and keep us cool in summer, while dark colors absorb heat.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 25,
+            question: 'Houses in hilly areas are often made of:',
+            options: ['Bricks only', 'Wood and stone', 'Glass', 'Plastic'],
+            correctAnswer: 1,
+            explanation: 'Houses in hilly areas are often made of wood and stone as these materials are readily available and can withstand the climate.',
+            difficulty: 'Easy'
+        }
+    ],
+    set6: [
+        {
+            id: 26,
+            question: 'Which of these is NOT a synthetic fiber?',
+            options: ['Polyester', 'Nylon', 'Acrylic', 'Silk'],
+            correctAnswer: 3,
+            explanation: 'Silk is a natural fiber obtained from silkworms, while polyester, nylon, and acrylic are synthetic fibers.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 27,
+            question: 'The process of making cloth from fibers is called:',
+            options: ['Weaving', 'Spinning', 'Knitting', 'All of these'],
+            correctAnswer: 3,
+            explanation: 'Making cloth from fibers involves both spinning (making yarn from fibers) and weaving/knitting (making fabric from yarn).',
+            difficulty: 'Easy'
+        },
+        {
+            id: 28,
+            question: 'People in cold regions wear:',
+            options: ['Light cotton clothes', 'Heavy woolen clothes', 'Silk clothes', 'Synthetic clothes'],
+            correctAnswer: 1,
+            explanation: 'People in cold regions wear heavy woolen clothes as wool provides insulation and keeps the body warm.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 29,
+            question: 'Which of these is used to make tents?',
+            options: ['Cotton', 'Canvas', 'Silk', 'Wool'],
+            correctAnswer: 1,
+            explanation: 'Canvas is a strong, durable fabric that is commonly used for making tents as it is waterproof and lightweight.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 30,
+            question: 'Houses in areas with heavy rainfall have:',
+            options: ['Slanting roofs', 'Flat roofs', 'No roofs', 'Glass roofs'],
+            correctAnswer: 0,
+            explanation: 'Houses in areas with heavy rainfall have slanting roofs so that rainwater can easily slide off.',
+            difficulty: 'Easy'
+        }
+    ],
+    set7: [
+        {
+            id: 31,
+            question: 'Which of these clothes absorbs sweat?',
+            options: ['Silk', 'Nylon', 'Cotton', 'Polyester'],
+            correctAnswer: 2,
+            explanation: 'Cotton clothes absorb sweat and allow air to pass through, making them comfortable to wear in hot weather.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 32,
+            question: 'Houses in plains are usually made of:',
+            options: ['Ice', 'Wood only', 'Bricks and cement', 'Leaves'],
+            correctAnswer: 2,
+            explanation: 'Houses in plains are usually made of bricks and cement as these materials are strong and readily available.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 33,
+            question: 'Which of these is a temporary shelter?',
+            options: ['Apartment', 'Bungalow', 'Tent', 'Skyscraper'],
+            correctAnswer: 2,
+            explanation: 'Tents are temporary shelters that can be easily set up and taken down as needed.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 34,
+            question: 'The material used to make houses depends on:',
+            options: ['Climate and availability of materials', 'Color preference', 'Size of family', 'Height of people'],
+            correctAnswer: 0,
+            explanation: 'The material used to make houses depends on the climate of the region and availability of local materials.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 35,
+            question: 'We wear different clothes for different seasons because:',
+            options: ['To look fashionable', 'Different clothes suit different weather conditions', 'Teachers tell us to', 'It is a tradition'],
+            correctAnswer: 1,
+            explanation: 'We wear different clothes for different seasons because different types of clothes are suitable for different weather conditions.',
+            difficulty: 'Easy'
+        }
+    ],
+    set8: [
+        {
+            id: 36,
+            question: 'Which of these is a natural fiber?',
+            options: ['Rayon', 'Acrylic', 'Cotton', 'Polyester'],
+            correctAnswer: 2,
+            explanation: 'Cotton is a natural fiber obtained from the cotton plant, while rayon, acrylic, and polyester are synthetic fibers.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 37,
+            question: 'Houses in hot and dry areas have:',
+            options: ['Thick walls', 'White or light colored walls', 'Small windows', 'No windows'],
+            correctAnswer: 1,
+            explanation: 'Houses in hot and dry areas have white or light colored walls as they reflect heat and keep the house cool.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 38,
+            question: 'What should you not climb on in the classroom?',
+            options: ['Chair', 'Furniture', 'Stairs', 'Playground'],
+            correctAnswer: 1,
+            explanation: 'Climbing on furniture in the classroom is dangerous and can cause falls and injuries.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 39,
+            question: 'Which of these is a temporary house?',
+            options: ['Igloo', 'Skyscraper', 'Bungalow', 'Apartment'],
+            correctAnswer: 0,
+            explanation: 'Igloos are temporary houses made of ice and snow by the Eskimos which can be built quickly and are useful in extreme cold.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 40,
+            question: 'The process of making yarn from fibers is called:',
+            options: ['Weaving', 'Spinning', 'Knitting', 'Dyeing'],
+            correctAnswer: 1,
+            explanation: 'The process of making yarn from fibers is called spinning. Weaving is the process of making fabric from yarn.',
+            difficulty: 'Easy'
+        }
+    ]
+};
+
+// Add the new questions to the main mcqQuestions object
+mcqQuestions['housing-clothing'] = housingClothingQuestions;
+
+// Chapter summaries
+// Duplicate summaryContent declaration removed (content already exists at end of file)
+// 'real-numbers': {
+        keyPoints: [
+            'Real numbers include both rational and irrational numbers',
+            'Rational numbers can be expressed as p/q where p, q are integers and q ≠ 0',
+            'Irrational numbers cannot be expressed as fractions',
+            'Euclid division algorithm helps find HCF of two positive integers',
+            'Decimal expansion of rational numbers is either terminating or non-terminating repeating'
+        ],
+        formulas: [
+            'Euclid Division Lemma: a = bq + r, where 0 ≤ r < b',
+            'For positive integers a and b: a × b = HCF(a,b) × LCM(a,b)',
+            'If p is a prime and p divides a², then p divides a'
+        ],
+        importantNotes: [
+            'Every integer is a rational number but not every rational number is an integer',
+            'The sum, difference, and product of two rational numbers is always rational',
+            'The sum or difference of a rational and irrational number is always irrational'
+        ]
+    },
+    'solar-system': {
+        keyPoints: [
+            'The Solar System has the Sun at the center and 8 planets orbiting around it',
+            'The Sun is the biggest object in our Solar System and gives us light and heat',
+            'Earth is the only planet known to have life',
+            'The Moon is Earth\'s only natural satellite',
+            'Each planet has special features that make it unique'
+        ],
+        formulas: [
+            'Order of planets from the Sun: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune',
+            'Earth is the 3rd planet from the Sun',
+            'Jupiter is the largest planet, Mercury is the smallest'
+        ],
+        importantNotes: [
+            'Mars is called the Red Planet because of its reddish color',
+            'Earth is called the Blue Planet because of its water',
+            'Saturn has beautiful rings made of ice and rock',
+            'The Moon changes its shape as we see it from Earth (phases of the Moon)'
+        ]
+    },
+    'housing-clothing': {
+        keyPoints: [
+            'Houses are built according to the climate of the region',
+            'Materials used for houses depend on availability in the region',
+            'Temporary houses can be moved from one place to another',
+            'Clothes are chosen based on weather conditions',
+            'Natural fibers come from plants and animals while synthetic fibers are made in factories'
+        ],
+        formulas: [
+            'Thick walls + Small windows = Warm house (cold climates)',
+            'Thin walls + Large windows = Cool house (hot climates)',
+            'Light colors = Heat reflection (summer)',
+            'Dark colors = Heat absorption (winter)'
+        ],
+        importantNotes: [
+            'Houses in flood-prone areas are built on stilts',
+            'Houses in extremely cold regions are made of ice (igloos)',
+            'Cotton is best for summer as it absorbs sweat',
+            'Wool is best for winter as it provides insulation',
+            'Waterproof clothes are ideal for rainy season'
+        ]
+    }
+};
+
+// Sample MCQ questions
+const mcqQuestions = {
+    'real-numbers': {
+        set1: [
+            {
+                id: 1,
+                question: 'Which of the following is a rational number?',
+                options: ['√2', '√3', '22/7', '√5'],
+                correctAnswer: 2,
+                explanation: '22/7 is a ratio of two integers, making it a rational number.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 2,
+                question: 'The decimal expansion of a rational number is:',
+                options: ['Always terminating', 'Always non-terminating', 'Either terminating or non-terminating repeating', 'Always irrational'],
+                correctAnswer: 2,
+                explanation: 'Rational numbers have decimal expansions that either terminate or repeat.',
+                difficulty: 'Medium'
+            },
+            {
+                id: 3,
+                question: 'HCF of 96 and 404 is:',
+                options: ['4', '8', '12', '2'],
+                correctAnswer: 0,
+                explanation: 'Using Euclidean algorithm: HCF(96, 404) = 4',
+                difficulty: 'Medium'
+            },
+            {
+                id: 4,
+                question: 'Which of the following is irrational?',
+                options: ['0.333...', '0.142857142857...', '0.101001000100001...', '0.25'],
+                correctAnswer: 2,
+                explanation: '0.101001000100001... is non-terminating and non-repeating.',
+                difficulty: 'Hard'
+            },
+            {
+                id: 5,
+                question: 'The number 0.142857142857... can be expressed as:',
+                options: ['1/7', '1/8', '1/6', '1/9'],
+                correctAnswer: 0,
+                explanation: '1/7 = 0.142857142857... (repeating)',
+                difficulty: 'Medium'
+            }
+        ],
+        set2: [
+            {
+                id: 6,
+                question: 'If √2 = 1.414, then √8 equals:',
+                options: ['2.828', '4.242', '5.656', '1.414'],
+                correctAnswer: 0,
+                explanation: '√8 = √(4×2) = 2√2 = 2 × 1.414 = 2.828',
+                difficulty: 'Medium'
+            },
+            {
+                id: 7,
+                question: 'The LCM of smallest two digit composite number and smallest composite number is:',
+                options: ['12', '20', '40', '60'],
+                correctAnswer: 1,
+                explanation: 'Smallest composite number is 4, smallest two-digit composite is 10. LCM(4,10) = 20',
+                difficulty: 'Hard'
+            },
+            {
+                id: 8,
+                question: 'Euclid division lemma states that for positive integers a and b, there exist unique integers q and r such that:',
+                options: ['a = bq + r, where 0 ≤ r < b', 'a = bq + r, where 0 < r ≤ b', 'a = bq + r, where r < 0', 'a = bq + r, where r > b'],
+                correctAnswer: 0,
+                explanation: 'Euclid division lemma: a = bq + r, where 0 ≤ r < b',
+                difficulty: 'Easy'
+            },
+            {
+                id: 9,
+                question: 'The product of a rational and an irrational number is:',
+                options: ['Always rational', 'Always irrational', 'May be rational or irrational', 'Always zero'],
+                correctAnswer: 2,
+                explanation: 'If rational number is 0, product is 0 (rational). Otherwise, product is irrational.',
+                difficulty: 'Hard'
+            },
+            {
+                id: 10,
+                question: 'If HCF(a,b) = 12 and LCM(a,b) = 72, and a = 24, then b equals:',
+                options: ['36', '48', '60', '72'],
+                correctAnswer: 0,
+                explanation: 'Using formula: a × b = HCF × LCM. So 24 × b = 12 × 72, b = 36',
+                difficulty: 'Hard'
+            }
+        ]
+    },
+    'solar-system': {
+        set1: [
+            {
+                id: 1,
+                question: 'Which is the biggest object in our Solar System?',
+                options: ['Earth', 'Sun', 'Moon', 'Mars'],
+                correctAnswer: 1,
+                explanation: 'The Sun is the biggest object in our Solar System. It is a star that gives us light and heat.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 2,
+                question: 'How many planets are there in our Solar System?',
+                options: ['5', '7', '8', '9'],
+                correctAnswer: 2,
+                explanation: 'There are 8 planets in our Solar System: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 3,
+                question: 'Which planet is called the "Red Planet"?',
+                options: ['Venus', 'Jupiter', 'Mars', 'Earth'],
+                correctAnswer: 2,
+                explanation: 'Mars is called the "Red Planet" because it looks red due to iron oxide (rust) on its surface.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 4,
+                question: 'Which planet do we live on?',
+                options: ['Mercury', 'Earth', 'Saturn', 'Neptune'],
+                correctAnswer: 1,
+                explanation: 'We live on Earth, which is the third planet from the Sun and the only planet known to have life.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 5,
+                question: 'Which planet is closest to the Sun?',
+                options: ['Mercury', 'Earth', 'Venus', 'Mars'],
+                correctAnswer: 0,
+                explanation: 'Mercury is the closest planet to the Sun. It is very hot during the day and very cold at night.',
+                difficulty: 'Easy'
+            }
+        ],
+        set2: [
+            {
+                id: 6,
+                question: 'Which planet is the largest in our Solar System?',
+                options: ['Earth', 'Jupiter', 'Saturn', 'Uranus'],
+                correctAnswer: 1,
+                explanation: 'Jupiter is the largest planet in our Solar System. It is so big that all other planets could fit inside it!',
+                difficulty: 'Easy'
+            },
+            {
+                id: 7,
+                question: 'What is the shape of the Earth?',
+                options: ['Square', 'Round (like a ball)', 'Triangle', 'Flat'],
+                correctAnswer: 1,
+                explanation: 'The Earth is round like a ball. This shape is called a sphere.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 8,
+                question: 'Which planet is also called the "Blue Planet"?',
+                options: ['Earth', 'Venus', 'Mars', 'Jupiter'],
+                correctAnswer: 0,
+                explanation: 'Earth is called the "Blue Planet" because most of its surface is covered with water, which looks blue from space.',
+                difficulty: 'Easy'
+            },
+            {
+                id: 9,
+                question: 'Which planet has beautiful rings around it?',
+                options: ['Venus', 'Saturn', 'Uranus', 'Neptune'],
+                correctAnswer: 1,
+                explanation: 'Saturn has beautiful rings around it made of ice and rock particles. These rings make Saturn very special!',
+                difficulty: 'Easy'
+            },
+            {
+                id: 10,
+                question: 'Which is the only natural satellite of Earth?',
+                options: ['Sun', 'Moon', 'Star', 'Mars'],
+                correctAnswer: 1,
+                explanation: 'The Moon is Earth\'s only natural satellite. It orbits around Earth and we can see it in the sky.',
+                difficulty: 'Easy'
+            }
+        ]
+    }
+};
+
+// MCQ questions for Living and Non-living Things chapter
+const livingNonlivingQuestions = {
+    set1: [
+        {
+            id: 1,
+            question: 'Which of the following is a living thing?',
+            options: ['Chair', 'Puppy', 'Moon', 'Hat'],
+            correctAnswer: 1,
+            explanation: 'A puppy is a living thing because it shows all characteristics of living things like eating, growing, breathing, and responding to its environment.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'Non-living things are those which:',
+            options: ['Eat and grow', 'Do not show any signs of life', 'Reproduce', 'Feel changes in the environment'],
+            correctAnswer: 1,
+            explanation: 'Non-living things do not show any signs of life such as eating, growing, breathing, or reproducing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Which of the following grows from a seed?',
+            options: ['Plant', 'Chair', 'Table', 'Hat'],
+            correctAnswer: 0,
+            explanation: 'Plants grow from seeds. This is one of the characteristics of living things.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Human beings grow from:',
+            options: ['Seed to plant', 'Baby to adult', 'Egg to butterfly', 'None of these'],
+            correctAnswer: 1,
+            explanation: 'Human beings grow from baby to adult. This is a characteristic of all living things.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Which of the following gives energy to living things?',
+            options: ['Toys', 'Food', 'Paper', 'Clothes'],
+            correctAnswer: 1,
+            explanation: 'Food gives energy to all living things. Living things need food to grow and carry out life processes.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Birds migrating in winter is an example of:',
+            options: ['Breathing', 'Responding to environment', 'Reproduction', 'Non-living activity'],
+            correctAnswer: 1,
+            explanation: 'Birds migrating in winter is an example of living things responding to changes in their environment.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 7,
+            question: 'Which of these is a feature of living things?',
+            options: ['Need food, air, water', 'Made by humans', 'Do not grow', 'Stay lifeless'],
+            correctAnswer: 0,
+            explanation: 'All living things need food, air, and water to survive. This is a basic characteristic of life.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Which organ do fish use to breathe?',
+            options: ['Nose', 'Gills', 'Skin', 'Lungs'],
+            correctAnswer: 1,
+            explanation: 'Fish use gills to breathe. Gills help them extract oxygen from water.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'Frogs breathe with the help of:',
+            options: ['Lungs only', 'Nose only', 'Skin and lungs', 'Gills only'],
+            correctAnswer: 2,
+            explanation: 'Frogs can breathe with both their skin and lungs. This is a special feature that helps them survive in different environments.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 10,
+            question: 'Which of the following is not required by non-living things?',
+            options: ['Air', 'Food', 'Water', 'All of these'],
+            correctAnswer: 3,
+            explanation: 'Non-living things do not require air, food, or water as they do not have life processes.',
+            difficulty: 'Medium'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'Harry the teddy bear is:',
+            options: ['Living', 'Non-living', 'Growing', 'Breathing'],
+            correctAnswer: 1,
+            explanation: 'A teddy bear is non-living because it does not show any signs of life like eating, growing, or breathing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 12,
+            question: 'What do living things need to survive?',
+            options: ['Food, water, air', 'Toys', 'Clothes', 'Chairs'],
+            correctAnswer: 0,
+            explanation: 'All living things need food, water, and air to survive. These are essential for carrying out life processes.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 13,
+            question: 'Plants need __________ to prepare food.',
+            options: ['Sunlight, water, carbon dioxide', 'Toys, air, biscuits', 'Moonlight, oil, soil', 'None of these'],
+            correctAnswer: 0,
+            explanation: 'Plants need sunlight, water, and carbon dioxide to prepare their food through the process of photosynthesis.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 14,
+            question: 'Which of these is man-made?',
+            options: ['Sun', 'Moon', 'Chair', 'River'],
+            correctAnswer: 2,
+            explanation: 'A chair is man-made, which means it is created by humans. Sun, moon, and river are natural things.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 15,
+            question: 'Which of these is a natural non-living thing?',
+            options: ['Hat', 'Paper', 'River', 'Chair'],
+            correctAnswer: 2,
+            explanation: 'A river is a natural non-living thing. It exists in nature but does not show signs of life.',
+            difficulty: 'Medium'
+        }
+    ],
+    set4: [
+        {
+            id: 16,
+            question: 'Living things can:',
+            options: ['Reproduce', 'Stay lifeless', 'Be made by humans', 'Never breathe'],
+            correctAnswer: 0,
+            explanation: 'One of the key characteristics of living things is that they can reproduce to produce young ones of their own kind.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 17,
+            question: 'Which of these lays eggs?',
+            options: ['Dogs', 'Cats', 'Birds', 'Humans'],
+            correctAnswer: 2,
+            explanation: 'Birds lay eggs as a method of reproduction. Dogs, cats, and humans give birth to live young ones.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 18,
+            question: 'Humans breathe with the help of:',
+            options: ['Gills', 'Lungs', 'Nose only', 'Skin'],
+            correctAnswer: 1,
+            explanation: 'Humans breathe with the help of lungs. Lungs help us take in oxygen and remove carbon dioxide from our body.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 19,
+            question: 'A toy bone is:',
+            options: ['Living', 'Non-living', 'Growing', 'Breathing'],
+            correctAnswer: 1,
+            explanation: 'A toy bone is non-living because it is made by humans and does not show any signs of life.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 20,
+            question: 'Energy means:',
+            options: ['Power to play only', 'Strength required to do something', 'Toys and biscuits', 'None of these'],
+            correctAnswer: 1,
+            explanation: 'Energy is the strength or power required to do work or carry out different activities.',
+            difficulty: 'Medium'
+        }
+    ],
+    set5: [
+        {
+            id: 21,
+            question: 'Which of these can move on its own?',
+            options: ['Puppy', 'Chair', 'Toy', 'Paper'],
+            correctAnswer: 0,
+            explanation: 'A puppy can move on its own because it is a living thing. Chairs, toys, and paper are non-living and cannot move by themselves.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 22,
+            question: 'Which of these is not alive but still moves with air?',
+            options: ['Dog', 'Cat', 'Windmill', 'Fish'],
+            correctAnswer: 2,
+            explanation: 'A windmill is not alive but moves when air (wind) blows on its blades. This is an example of movement in non-living things due to external force.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 23,
+            question: 'Which energy is obtained from wind?',
+            options: ['Solar energy', 'Wind energy', 'Water energy', 'Fire energy'],
+            correctAnswer: 1,
+            explanation: 'Wind energy is obtained from wind. Wind can be used to generate electricity through windmills.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 24,
+            question: 'Is wind natural or man-made?',
+            options: ['Man-made', 'Natural', 'Artificial', 'None'],
+            correctAnswer: 1,
+            explanation: 'Wind is a natural phenomenon. It is not made by humans.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 25,
+            question: 'Which of these can become pale and lifeless without sunlight?',
+            options: ['Toy', 'Plant', 'Hat', 'River'],
+            correctAnswer: 1,
+            explanation: 'Plants can become pale and lifeless without sunlight because they need sunlight for photosynthesis to make food.',
+            difficulty: 'Medium'
+        }
+    ],
+    set6: [
+        {
+            id: 26,
+            question: 'Which of these shows movement in plants?',
+            options: ['Stem and leaves', 'Toys', 'Paper', 'Moon'],
+            correctAnswer: 0,
+            explanation: 'The stem and leaves of plants show movement. For example, sunflowers move to face the sun, and leaves move with the wind.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 27,
+            question: 'Non-living things can be grouped into:',
+            options: ['Living and non-living', 'Natural and man-made', 'Big and small', 'Food and toys'],
+            correctAnswer: 1,
+            explanation: 'Non-living things can be grouped into natural (like rivers, mountains) and man-made (like chairs, buildings).',
+            difficulty: 'Medium'
+        },
+        {
+            id: 28,
+            question: 'Which of these is affected by weather?',
+            options: ['Living things only', 'Non-living things only', 'Both living and non-living things', 'None of these'],
+            correctAnswer: 2,
+            explanation: 'Both living and non-living things are affected by weather. For example, plants (living) grow with rain, and rocks (non-living) get eroded by wind.',
+            difficulty: 'Hard'
+        },
+        {
+            id: 29,
+            question: 'Living things breathe in air with:',
+            options: ['Food', 'Breathing organs', 'Toys', 'Non-living parts'],
+            correctAnswer: 1,
+            explanation: 'Living things breathe in air with the help of special breathing organs like lungs, gills, or nose.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 30,
+            question: 'Which of these produces young ones of its own kind?',
+            options: ['Humans', 'Plants', 'Birds', 'All of these'],
+            correctAnswer: 3,
+            explanation: 'All living things produce young ones of their own kind. This is called reproduction.',
+            difficulty: 'Easy'
+        }
+    ],
+    set7: [
+        {
+            id: 31,
+            question: 'The Sun is a:',
+            options: ['Natural living thing', 'Natural non-living thing', 'Man-made non-living thing', 'Living creature'],
+            correctAnswer: 1,
+            explanation: 'The Sun is a natural non-living thing. Although it gives heat and light, it does not show other characteristics of living things like eating or growing.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 32,
+            question: 'The Moon is a:',
+            options: ['Man-made non-living thing', 'Natural non-living thing', 'Living thing', 'Plant'],
+            correctAnswer: 1,
+            explanation: 'The Moon is a natural non-living thing. It exists in nature but does not show signs of life.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 33,
+            question: 'A hat is a:',
+            options: ['Natural living thing', 'Man-made non-living thing', 'Natural non-living thing', 'Living thing'],
+            correctAnswer: 1,
+            explanation: 'A hat is a man-made non-living thing. It is created by humans and does not show signs of life.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 34,
+            question: 'A dog is a:',
+            options: ['Non-living thing', 'Living thing', 'Natural non-living thing', 'Man-made thing'],
+            correctAnswer: 1,
+            explanation: 'A dog is a living thing because it shows all characteristics of living things like eating, growing, breathing, and reproducing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 35,
+            question: 'Which of these responds to seasons like spring and autumn?',
+            options: ['Toys', 'Plants', 'Moon', 'Hat'],
+            correctAnswer: 1,
+            explanation: 'Plants respond to seasons. For example, they bloom in spring and shed leaves in autumn.',
+            difficulty: 'Medium'
+        }
+    ],
+    set8: [
+        {
+            id: 36,
+            question: 'Birds migrate in response to:',
+            options: ['Toys', 'Weather changes', 'Humans', 'Chairs'],
+            correctAnswer: 1,
+            explanation: 'Birds migrate in response to weather changes. This is an example of living things responding to their environment.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 37,
+            question: 'Which of these shows no signs of life?',
+            options: ['Puppy', 'Teddy bear', 'Fish', 'Human'],
+            correctAnswer: 1,
+            explanation: 'A teddy bear shows no signs of life. It is a non-living thing.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 38,
+            question: 'Living and non-living things both:',
+            options: ['Occupy space and have weight', 'Eat and breathe', 'Reproduce', 'Grow'],
+            correctAnswer: 0,
+            explanation: 'Both living and non-living things occupy space and have weight. This is a common property of all matter.',
+            difficulty: 'Hard'
+        },
+        {
+            id: 39,
+            question: 'Matter means:',
+            options: ['Toys', 'Substances that make up all living and non-living things', 'Only living substances', 'Things made by humans only'],
+            correctAnswer: 1,
+            explanation: 'Matter means substances that make up all living and non-living things. Everything around us is made up of matter.',
+            difficulty: 'Medium'
+        },
+        {
+            id: 40,
+            question: 'Living and non-living things are both:',
+            options: ['Important for life', 'Useless for life', 'Toys', 'Chairs'],
+            correctAnswer: 0,
+            explanation: 'Both living and non-living things are important for life. Living things need non-living things like air, water, and soil to survive.',
+            difficulty: 'Medium'
+        }
+    ]
+};
+
+// Add the new questions to the main mcqQuestions object
+mcqQuestions['living-nonliving'] = livingNonlivingQuestions;
+
+// Video content
+const videoContent = {
+    'real-numbers': [
+        {
+            title: 'Introduction to Real Numbers',
+            duration: '15:30',
+            thumbnail: 'https://via.placeholder.com/300x200/3498db/white?text=Real+Numbers',
+            description: 'Learn about rational and irrational numbers with examples',
+            url: '#'
+        },
+        {
+            title: 'Euclid Division Algorithm',
+            duration: '12:45',
+            thumbnail: 'https://via.placeholder.com/300x200/e74c3c/white?text=Euclid+Algorithm',
+            description: 'Step-by-step explanation of finding HCF using Euclid method',
+            url: '#'
+        }
+    ],
+    'solar-system': [
+        {
+            title: 'Our Solar System - Complete Overview',
+            duration: '11:23',
+            thumbnail: 'https://i.ytimg.com/vi/zoT7GnHB28Q/maxresdefault.jpg',
+            description: 'Complete educational video about our Solar System for Class 3 students',
+            url: 'https://youtu.be/zoT7GnHB28Q?si=hsAHrlPxGzYqWaoj'
+        },
+        {
+            title: 'Solar System Educational Video for Kids',
+            duration: '8:15',
+            thumbnail: 'https://i.ytimg.com/vi/pVEfjmg1dSQ/maxresdefault.jpg',
+            description: 'Fun and interactive Solar System learning video perfect for young learners',
+            url: 'https://youtu.be/pVEfjmg1dSQ?si=vRmkhmCwk-9Hlavg'
+        },
+        {
+            title: 'The Eight Planets',
+            duration: '10:30',
+            thumbnail: 'https://via.placeholder.com/300x200/e67e22/white?text=8+Planets',
+            description: 'Learn about all 8 planets in our Solar System',
+            url: '#'
+        }
+    ]
+};
+
+// MCQ questions for Understanding Birds chapter
+mcqQuestions['understanding-birds'] = {
+    set1: [
+        {
+            id: 1,
+            question: 'Birds use their beaks mainly for:',
+            options: ['Flying', 'Catching and eating food', 'Building nests', 'Laying eggs'],
+            correctAnswer: 1,
+            explanation: 'Birds use their beaks primarily for catching and eating food, though they also use them for other activities like building nests.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 2,
+            question: 'A sparrow has a beak that is:',
+            options: ['Long and pointed', 'Curved', 'Strong, short and hard', 'Broad and flat'],
+            correctAnswer: 2,
+            explanation: 'Sparrows have strong, short and hard beaks that help them crack seeds.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 3,
+            question: 'Vultures and eagles have ______ beaks.',
+            options: ['Chisel-shaped', 'Curved', 'Hooked and sharp', 'Flat'],
+            correctAnswer: 2,
+            explanation: 'Vultures and eagles have hooked and sharp beaks that help them tear flesh.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 4,
+            question: 'Woodpeckers have ______ beaks.',
+            options: ['Long and pointed', 'Chisel-shaped', 'Hooked', 'Broad and short'],
+            correctAnswer: 1,
+            explanation: 'Woodpeckers have chisel-shaped beaks that help them peck into tree trunks to find insects.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 5,
+            question: 'Hummingbirds suck nectar using:',
+            options: ['Broad beak', 'Curved beak', 'Long pointed beak', 'Hard short beak'],
+            correctAnswer: 2,
+            explanation: 'Hummingbirds have long pointed beaks that help them reach nectar deep inside flowers.',
+            difficulty: 'Easy'
+        }
+    ],
+    set2: [
+        {
+            id: 6,
+            question: 'Parrots use their curved beaks to:',
+            options: ['Drink nectar', 'Crack fruits and seeds', 'Tear flesh', 'Scratch the ground'],
+            correctAnswer: 1,
+            explanation: 'Parrots use their curved beaks to crack fruits and seeds to get to the edible parts.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 7,
+            question: 'Swallows have ______ beaks.',
+            options: ['Sticky, short and broad', 'Chisel-shaped', 'Hooked', 'Curved'],
+            correctAnswer: 0,
+            explanation: 'Swallows have sticky, short and broad beaks that help them catch insects while flying.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 8,
+            question: 'Ducks and cranes have:',
+            options: ['Long pointed beaks', 'Broad and flat beaks', 'Chisel-shaped beaks', 'Curved beaks'],
+            correctAnswer: 1,
+            explanation: 'Ducks and cranes have broad and flat beaks that help them filter food from water.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 9,
+            question: 'Perching birds have toes arranged as:',
+            options: ['Three front, one back', 'Two front, two back', 'Four in one line', 'Webbed'],
+            correctAnswer: 0,
+            explanation: 'Perching birds have three toes pointing forward and one backward, which helps them grip branches.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 10,
+            question: 'Example of perching birds:',
+            options: ['Eagle, vulture', 'Crow, sparrow', 'Duck, goose', 'Penguin, ostrich'],
+            correctAnswer: 1,
+            explanation: 'Crows and sparrows are examples of perching birds that can grip branches with their toe arrangement.',
+            difficulty: 'Easy'
+        }
+    ],
+    set3: [
+        {
+            id: 11,
+            question: 'Flesh-eating birds have strong claws called:',
+            options: ['Hooks', 'Talons', 'Webs', 'Nails'],
+            correctAnswer: 1,
+            explanation: 'Flesh-eating birds like eagles and vultures have strong claws called talons for catching prey.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 12,
+            question: 'Climbing birds like woodpecker have toes:',
+            options: ['Three front, one back', 'Two front down, two back up', 'Webbed', 'Spread out'],
+            correctAnswer: 1,
+            explanation: 'Woodpeckers have two toes pointing forward and two backward, which helps them climb tree trunks.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 13,
+            question: 'Wading birds have:',
+            options: ['Strong claws', 'Long legs with spread out toes', 'Webbed feet', 'Sticky beaks'],
+            correctAnswer: 1,
+            explanation: 'Wading birds like herons have long legs with spread out toes that help them walk in shallow water.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 14,
+            question: 'Example of scratching bird:',
+            options: ['Hen', 'Duck', 'Crane', 'Owl'],
+            correctAnswer: 0,
+            explanation: 'Hens are scratching birds that use their feet to scratch the ground in search of food.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 15,
+            question: 'Swimming birds have:',
+            options: ['Spread toes', 'Webbed feet', 'Claws', 'Long pointed toes'],
+            correctAnswer: 1,
+            explanation: 'Swimming birds like ducks have webbed feet that help them paddle through water.',
+            difficulty: 'Easy'
+        }
+    ],
+    set4: [
+        {
+            id: 16,
+            question: 'Which bird cannot fly?',
+            options: ['Sparrow', 'Penguin', 'Kite', 'Crow'],
+            correctAnswer: 1,
+            explanation: 'Penguins cannot fly but they are excellent swimmers and use their wings as flippers in water.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 17,
+            question: 'Feathers that cover body, wings and tail are:',
+            options: ['Down feathers', 'Body feathers', 'Flight feathers', 'Soft feathers'],
+            correctAnswer: 1,
+            explanation: 'Body feathers cover the bird\'s body, wings, and tail, providing shape and protection.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 18,
+            question: 'Feathers that keep birds warm are:',
+            options: ['Flight feathers', 'Body feathers', 'Down feathers', 'Tail feathers'],
+            correctAnswer: 2,
+            explanation: 'Down feathers are soft and fluffy, providing insulation to keep birds warm.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 19,
+            question: 'Feathers that help in flight are:',
+            options: ['Down feathers', 'Tail feathers', 'Flight feathers', 'Soft feathers'],
+            correctAnswer: 2,
+            explanation: 'Flight feathers are strong and stiff, providing the surface area needed for flying.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 20,
+            question: 'Movement of wings upward and backward is called:',
+            options: ['Downstroke', 'Upstroke', 'Side stroke', 'Air stroke'],
+            correctAnswer: 1,
+            explanation: 'The upward and backward movement of wings is called upstroke, which helps in lifting the bird.',
+            difficulty: 'Easy'
+        }
+    ],
+    set5: [
+        {
+            id: 21,
+            question: 'Movement of wings downward and forward is called:',
+            options: ['Upstroke', 'Downstroke', 'Airstroke', 'Glide'],
+            correctAnswer: 1,
+            explanation: 'The downward and forward movement of wings is called downstroke, which pushes air down to create lift.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 22,
+            question: 'Birds can fly because they have:',
+            options: ['Strong feet', 'Strong flight muscles', 'Sharp claws', 'Curved beaks'],
+            correctAnswer: 1,
+            explanation: 'Birds have strong flight muscles that power their wings to create the force needed for flying.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 23,
+            question: 'Pigeons and crows can:',
+            options: ['Fly long distances', 'Fly short distances only', 'Not fly', 'Fly very low'],
+            correctAnswer: 0,
+            explanation: 'Pigeons and crows are strong fliers that can travel long distances.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 24,
+            question: 'Vultures and kites can fly:',
+            options: ['Very high', 'Only low', 'Short distances', 'Not at all'],
+            correctAnswer: 0,
+            explanation: 'Vultures and kites are soaring birds that can fly very high using air currents.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 25,
+            question: 'Sparrows usually fly:',
+            options: ['Very high', 'Very low', 'Long distances', 'Not at all'],
+            correctAnswer: 1,
+            explanation: 'Sparrows are small birds that usually fly close to the ground or between trees.',
+            difficulty: 'Easy'
+        }
+    ],
+    set6: [
+        {
+            id: 26,
+            question: 'Hens and peacocks can:',
+            options: ['Fly long distances', 'Fly short distances only', 'Not fly', 'Fly very high'],
+            correctAnswer: 1,
+            explanation: 'Hens and peacocks can fly short distances but are not strong fliers like pigeons or crows.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 27,
+            question: 'Birds make nests to:',
+            options: ['Sleep', 'Lay eggs and protect babies', 'Store food', 'Practice flying'],
+            correctAnswer: 1,
+            explanation: 'Birds make nests primarily to lay eggs and protect their babies from predators and weather.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 28,
+            question: 'Birds make nests using:',
+            options: ['Leaves, twigs, feathers, mud', 'Cloth and paper', 'Only stones', 'Only wood'],
+            correctAnswer: 0,
+            explanation: 'Birds use natural materials like leaves, twigs, feathers, and mud to build their nests.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 29,
+            question: 'Scrape nests are made by:',
+            options: ['Quail and ostrich', 'Crow and sparrow', 'Parrot and owl', 'Tailorbird and hummingbird'],
+            correctAnswer: 0,
+            explanation: 'Quail and ostrich make scrape nests by simply making a shallow depression in the ground.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 30,
+            question: 'Burrow nests are made by:',
+            options: ['Owl, swallow, kingfisher', 'Crow, parrot, pigeon', 'Hen, duck, crane', 'Kite, eagle, vulture'],
+            correctAnswer: 0,
+            explanation: 'Owls, swallows, and kingfishers make burrow nests by digging holes in banks or trees.',
+            difficulty: 'Easy'
+        }
+    ],
+    set7: [
+        {
+            id: 31,
+            question: 'Cavity nests are made in:',
+            options: ['Water', 'Tree holes', 'Rocks', 'Soil'],
+            correctAnswer: 1,
+            explanation: 'Cavity nests are made inside tree holes or other natural cavities for protection.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 32,
+            question: 'Which bird makes a cupped nest by stitching leaves?',
+            options: ['Sparrow', 'Tailorbird', 'Woodpecker', 'Duck'],
+            correctAnswer: 1,
+            explanation: 'Tailorbirds are known for making cupped nests by stitching leaves together with plant fibers.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 33,
+            question: 'Hummingbird also makes a:',
+            options: ['Cupped nest', 'Pendant nest', 'Cavity nest', 'Scrape nest'],
+            correctAnswer: 0,
+            explanation: 'Hummingbirds make small cupped nests using plant down and spider webs.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 34,
+            question: 'Pendant nests are built by:',
+            options: ['Weaver bird, sunbird', 'Parrot, owl', 'Crow, pigeon', 'Hen, crane'],
+            correctAnswer: 0,
+            explanation: 'Weaver birds and sunbirds build pendant nests that hang from branches for protection.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 35,
+            question: 'Birds take care of their young ones by:',
+            options: ['Feeding and protecting them', 'Leaving them alone', 'Making them hunt early', 'Pushing them out'],
+            correctAnswer: 0,
+            explanation: 'Parent birds feed and protect their young ones until they are ready to survive on their own.',
+            difficulty: 'Easy'
+        }
+    ],
+    set8: [
+        {
+            id: 36,
+            question: 'Baby birds after hatching are usually:',
+            options: ['Strong and flying', 'Weak and featherless', 'Already hunters', 'Fully grown'],
+            correctAnswer: 1,
+            explanation: 'Baby birds are typically weak and featherless when they hatch and need parental care to survive.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 37,
+            question: 'Parents keep the eggs warm by:',
+            options: ['Sunlight', 'Sitting on them', 'Covering with leaves', 'Singing'],
+            correctAnswer: 1,
+            explanation: 'Parent birds keep eggs warm by sitting on them, a process called incubation.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 38,
+            question: 'Birds look after their babies until:',
+            options: ['They can fly and find food', 'They hatch', 'They grow feathers only', 'They become adults'],
+            correctAnswer: 0,
+            explanation: 'Parent birds care for their babies until they can fly and find food on their own.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 39,
+            question: 'Which bird uses its beak like a needle to stitch leaves?',
+            options: ['Hummingbird', 'Tailorbird', 'Owl', 'Kite'],
+            correctAnswer: 1,
+            explanation: 'Tailorbirds use their beaks like needles to stitch leaves together to make their nests.',
+            difficulty: 'Easy'
+        },
+        {
+            id: 40,
+            question: 'Which feature helps birds to stay warm and fly?',
+            options: ['Claws', 'Feathers', 'Beaks', 'Nests'],
+            correctAnswer: 1,
+            explanation: 'Feathers help birds stay warm by providing insulation and also help in flying by providing surface area.',
+            difficulty: 'Easy'
+        }
+    ]
+};
+
+// Chapter summaries
+const summaryContent = {
+    'real-numbers': {
+        keyPoints: [
+            'Real numbers include both rational and irrational numbers',
+            'Rational numbers can be expressed as p/q where p, q are integers and q ≠ 0',
+            'Irrational numbers cannot be expressed as fractions',
+            'Euclid division algorithm helps find HCF of two positive integers',
+            'Decimal expansion of rational numbers is either terminating or non-terminating repeating'
+        ],
+        formulas: [
+            'Euclid Division Lemma: a = bq + r, where 0 ≤ r < b',
+            'For positive integers a and b: a × b = HCF(a,b) × LCM(a,b)',
+            'If p is a prime and p divides a², then p divides a'
+        ],
+        importantNotes: [
+            'Every integer is a rational number but not every rational number is an integer',
+            'The sum, difference, and product of two rational numbers is always rational',
+            'The sum or difference of a rational and irrational number is always irrational'
+        ]
+    },
+    'solar-system': {
+        keyPoints: [
+            'The Solar System has the Sun at the center and 8 planets orbiting around it',
+            'The Sun is the biggest object in our Solar System and gives us light and heat',
+            'Earth is the only planet known to have life',
+            'The Moon is Earth\'s only natural satellite',
+            'Each planet has special features that make it unique'
+        ],
+        formulas: [
+            'Order of planets from the Sun: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune',
+            'Earth is the 3rd planet from the Sun',
+            'Jupiter is the largest planet, Mercury is the smallest'
+        ],
+        importantNotes: [
+            'Mars is called the Red Planet because of its reddish color',
+            'Earth is called the Blue Planet because of its water',
+            'Saturn has beautiful rings made of ice and rock',
+            'The Moon changes its shape as we see it from Earth (phases of the Moon)'
+        ]
+    },
+    'housing-clothing': {
+        keyPoints: [
+            'Houses are built according to the climate of the region',
+            'Materials used for houses depend on availability in the region',
+            'Temporary houses can be moved from one place to another',
+            'Clothes are chosen based on weather conditions',
+            'Natural fibers come from plants and animals while synthetic fibers are made in factories'
+        ],
+        formulas: [
+            'Thick walls + Small windows = Warm house (cold climates)',
+            'Thin walls + Large windows = Cool house (hot climates)',
+            'Light colors = Heat reflection (summer)',
+            'Dark colors = Heat absorption (winter)'
+        ],
+        importantNotes: [
+            'Houses in flood-prone areas are built on stilts',
+            'Houses in extremely cold regions are made of ice (igloos)',
+            'Cotton is best for summer as it absorbs sweat',
+            'Wool is best for winter as it provides insulation',
+            'Waterproof clothes are ideal for rainy season'
+        ]
+    }
+};
+
+// Sample MCQ questions

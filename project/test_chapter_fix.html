@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Chapter Fix</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .chapter-list { list-style-type: none; padding: 0; }
+        .chapter-item { padding: 10px; margin: 5px 0; background: #f8f9fa; border-left: 4px solid #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Test Chapter Fix</h1>
+    
+    <div id="results">
+        <div class="result" id="loading">Loading data...</div>
+    </div>
+    
+    <h2>Science Class 3 Chapters:</h2>
+    <ul id="chapter-list" class="chapter-list"></ul>
+
+    <script src="data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const results = document.getElementById('results');
+            const chapterList = document.getElementById('chapter-list');
+            const loading = document.getElementById('loading');
+            
+            try {
+                // Check if required objects exist
+                if (typeof chapters === 'undefined') {
+                    loading.className = 'result error';
+                    loading.textContent = 'ERROR: chapters object is not defined';
+                    return;
+                }
+                
+                if (typeof mcqQuestions === 'undefined') {
+                    loading.className = 'result error';
+                    loading.textContent = 'ERROR: mcqQuestions object is not defined';
+                    return;
+                }
+                
+                loading.className = 'result success';
+                loading.textContent = 'SUCCESS: Data loaded correctly';
+                
+                // Check Science Class 3 chapters
+                if (chapters['science'] && chapters['science'][3]) {
+                    const scienceChapters = chapters['science'][3];
+                    
+                    // Add result for chapter count
+                    const countResult = document.createElement('div');
+                    countResult.className = 'result success';
+                    countResult.textContent = `Found ${scienceChapters.length} chapters for Science Class 3`;
+                    results.appendChild(countResult);
+                    
+                    // List all chapters
+                    scienceChapters.forEach((chapter, index) => {
+                        const li = document.createElement('li');
+                        li.className = 'chapter-item';
+                        li.innerHTML = `
+                            <strong>Chapter ${index + 1}:</strong> ${chapter.name}<br>
+                            <small>ID: ${chapter.id} | Difficulty: ${chapter.difficulty} | Time: ${chapter.estimatedTime}</small>
+                        `;
+                        chapterList.appendChild(li);
+                        
+                        // Check if this is our-body chapter
+                        if (chapter.id === 'our-body') {
+                            const foundResult = document.createElement('div');
+                            foundResult.className = 'result success';
+                            foundResult.textContent = 'SUCCESS: "our-body" chapter found in data structure';
+                            results.appendChild(foundResult);
+                        }
+                    });
+                    
+                    // Check specifically for our-body chapter
+                    const ourBodyChapter = scienceChapters.find(ch => ch.id === 'our-body');
+                    if (!ourBodyChapter) {
+                        const notFoundResult = document.createElement('div');
+                        notFoundResult.className = 'result error';
+                        notFoundResult.textContent = 'ERROR: "our-body" chapter NOT found in chapters.science[3]';
+                        results.appendChild(notFoundResult);
+                    }
+                } else {
+                    const noChaptersResult = document.createElement('div');
+                    noChaptersResult.className = 'result error';
+                    noChaptersResult.textContent = 'ERROR: chapters.science[3] does not exist';
+                    results.appendChild(noChaptersResult);
+                }
+                
+                // Check MCQ questions for our-body
+                if (mcqQuestions['our-body']) {
+                    const ourBodyQuestions = mcqQuestions['our-body'];
+                    const setCount = Object.keys(ourBodyQuestions).length;
+                    
+                    let totalQuestions = 0;
+                    Object.keys(ourBodyQuestions).forEach(setId => {
+                        totalQuestions += ourBodyQuestions[setId].length;
+                    });
+                    
+                    const mcqResult = document.createElement('div');
+                    mcqResult.className = 'result success';
+                    mcqResult.textContent = `SUCCESS: Found ${setCount} question sets with ${totalQuestions} total questions for "our-body"`;
+                    results.appendChild(mcqResult);
+                } else {
+                    const noMcqResult = document.createElement('div');
+                    noMcqResult.className = 'result error';
+                    noMcqResult.textContent = 'ERROR: No MCQ questions found for "our-body"';
+                    results.appendChild(noMcqResult);
+                }
+                
+            } catch (error) {
+                loading.className = 'result error';
+                loading.textContent = `ERROR: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

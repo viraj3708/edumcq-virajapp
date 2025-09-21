@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Data</title>
+</head>
+<body>
+    <h1>Verifying Data Structure</h1>
+    <div id="results"></div>
+    
+    <script src="data.js"></script>
+    <script>
+        function verifyData() {
+            const results = document.getElementById('results');
+            let html = '<h2>Data Verification Results</h2>';
+            
+            // Check if all required objects exist
+            const requiredObjects = ['chapters', 'mcqQuestions', 'subjects', 'boards'];
+            requiredObjects.forEach(obj => {
+                if (typeof window[obj] !== 'undefined') {
+                    html += `<p style="color: green;">✓ ${obj} object exists</p>`;
+                } else {
+                    html += `<p style="color: red;">✗ ${obj} object missing</p>`;
+                }
+            });
+            
+            // Check science chapters for class 3
+            if (chapters && chapters['science'] && chapters['science'][3]) {
+                html += `<p style="color: green;">✓ Science chapters for class 3 exist</p>`;
+                html += `<p>Number of chapters: ${chapters['science'][3].length}</p>`;
+                
+                // List all chapters
+                chapters['science'][3].forEach((chapter, index) => {
+                    html += `<p>Chapter ${index + 1}: ${chapter.name} (ID: ${chapter.id})</p>`;
+                });
+                
+                // Check specifically for our-body chapter
+                const ourBodyChapter = chapters['science'][3].find(chapter => chapter.id === 'our-body');
+                if (ourBodyChapter) {
+                    html += `<p style="color: green;">✓ "Our Body" chapter found: ${ourBodyChapter.name}</p>`;
+                } else {
+                    html += `<p style="color: red;">✗ "Our Body" chapter not found</p>`;
+                }
+            } else {
+                html += `<p style="color: red;">✗ Science chapters for class 3 not found</p>`;
+            }
+            
+            // Check if our-body questions exist
+            if (mcqQuestions && mcqQuestions['our-body']) {
+                html += `<p style="color: green;">✓ "Our Body" questions exist</p>`;
+                html += `<p>Number of question sets: ${Object.keys(mcqQuestions['our-body']).length}</p>`;
+            } else {
+                html += `<p style="color: red;">✗ "Our Body" questions not found</p>`;
+            }
+            
+            results.innerHTML = html;
+        }
+        
+        window.onload = verifyData;
+    </script>
+</body>
+</html>
