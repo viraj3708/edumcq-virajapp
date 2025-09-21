@@ -1,0 +1,2 @@
+# edumcq-virajapp
+CHAPTERWISE MCQS FROM CLASS 1 TO 10
